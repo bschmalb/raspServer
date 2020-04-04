@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Nachhaltig Leben</title>
+    <link rel="shortcut icon" href="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>Mit einer App zu einem nachhaltigeren Leben</h1>
+        <p>Work in Progress!</p>
+    </div>
+
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label for="title">Titel des Tipps</label>
+                <input type="text" class="form-control" id="title" name="title"
+                    placeholder="Kaufe nachhaltige Produkte!" required>
+            </div>
+            <div class="form-group">
+                <label for="tippDescription">Beschreibung des Tipps</label>
+                <textarea class="form-control" id="tippDescription" name="description"
+                    placeholder="Beschreibe und belege deinen Tipp möglichst mit Quellen und wissenschaftlichen Artikeln"
+                    rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="tippSource1">Links und Quellen (optional)</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" id="tippSource1" name="source" placeholder="Quelle 1">
+                    </div>
+                    <!-- <div class="col">
+                        <input type="text" class="form-control" id="tippSource2" placeholder="Quelle 2">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="tippSource3" placeholder="Quelle 3">
+                    </div> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tippLevel">Level des Tipps</label>
+                <select class="form-control" id="tippLevel" name="level">
+                    <option>Einsteiger</option>
+                    <option>Fortgeschritten</option>
+                    <option>Experte</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tippCategory">Kategorie des Tipps</label>
+                <select class="form-control" id="tippCategory" name="category">
+                    <option>Ernährung</option>
+                    <option>Transport</option>
+                    <option>Konsum</option>
+                    <option>Andere</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tippFood">Art des Essen</label>
+                <select class="form-control" id="tippFood" name="foodType">
+                    <option>Vegan</option>
+                    <option>Vegetarisch</option>
+                    <option>Allesesser</option>
+                    <option>Keine Angabe</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    $("form").submit(function (event) {
+        var apiUrl = 'http://bastianschmalbach.ddns.net/tipps';
+        fetch(apiUrl).then((response) => {
+            return response.json();
+        })
+            .then(data => {
+                var object = {};
+                var obj = ($(this).serializeArray());
+
+                var id = "id"
+                object[id] = uuidv4();
+                var score = "score";
+                object[score] = 0;
+                obj.forEach(function (value, key) {
+                    var name = value.name;
+                    object[name] = value.value;
+                });
+
+                fetch(apiUrl, console.log(JSON.stringify(object)), {
+                    method: 'POST',
+                    body: JSON.stringify(object),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log('Success:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
+
+            }).catch(err => {
+                console.log(err)
+            });
+
+
+        /* data.push(obj)
+        console.log(obj); */
+        //data.push(obj);
+
+        event.preventDefault();
+    });
+</script>
+
+</html>
