@@ -16,6 +16,10 @@
     <div class="jumbotron text-center">
         <h1>Mit einer App zu einem nachhaltigeren Leben</h1>
         <p>Work in Progress!</p>
+        <div class="container text-center col">
+            <a href="editTipps" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Edit your posted Tipps</a>
+            </button>
+        </div>
     </div>
 
     <div class="container">
@@ -78,44 +82,32 @@
 
 <script>
     $("form").submit(function (event) {
+
+        var object = {};
+        var obj = ($(this).serializeArray());
+
+        var id = "id"
+        object[id] = uuidv4();
+        var score = "score";
+        object[score] = 0;
+        obj.forEach(function (value, key) {
+            var name = value.name;
+            object[name] = value.value;
+        });
+
         var apiUrl = 'http://bastianschmalbach.ddns.net/tipps';
-        fetch(apiUrl).then((response) => {
-            return response.json();
-        })
-            .then(data => {
-                var object = {};
-                var obj = ($(this).serializeArray());
-
-                var id = "id"
-                object[id] = uuidv4();
-                var score = "score";
-                object[score] = 0;
-                obj.forEach(function (value, key) {
-                    var name = value.name;
-                    object[name] = value.value;
-                });
-
-                fetch(apiUrl, console.log(JSON.stringify(object)), {
-                    method: 'POST',
-                    body: JSON.stringify(object),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        console.log('Success:', data);
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
-
-
-            }).catch(err => {
-                console.log(err)
-            });
-
-
-        /* data.push(obj)
-        console.log(obj); */
-        //data.push(obj);
+        fetch(apiUrl, {
+            method: 'POST',
+            body: JSON.stringify(object),
+        }).then((response) => {
+            //response.json();
+        }).then(data => {
+            alert("Succecfully added your Tipp")
+            location.reload();
+        }).catch(err => {
+            alert("There was an Error submitting your Tipp")
+            console.log(err)
+        });
 
         event.preventDefault();
     });

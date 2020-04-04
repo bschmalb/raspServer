@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Nachhaltig Leben</title>
+    <link rel="shortcut icon" href="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>Mit einer App zu einem nachhaltigeren Leben</h1>
+        <p>Work in Progress!</p>
+        <div class="container text-center col">
+            <a href="addTipps" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add new Tipps</a>
+            </button>
+        </div>
+    </div>
+
+    <div class="container table-responsive">
+        <table class="table" id="table">
+            <thead>
+                <tr>
+                    <!-- <th data-field="id">Tipp ID</th> -->
+                    <th data-field="title">Title</th>
+                    <th data-field="description">Beschreibung</th>
+                    <th data-field="source">Link</th>
+                    <th data-field="level">Level</th>
+                    <th data-field="category">Kategorie</th>
+                    <th data-field="foodType">Essesntyp</th>
+                    <!-- <th data-field="score">Score</th> -->
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    var localData = {};
+    $(document).ready(function () {
+        var apiUrl = 'http://bastianschmalbach.ddns.net/tipps';
+        fetch(apiUrl).then((response) => {
+            return response.json();
+        }).then(data => {
+            localData = data;
+            var tr;
+            for (var i = 0; i < data.length; i++) {
+                tr = $('<tr/>');
+                //tr.append("<td>" + data[i].id + "</td>");
+                tr.append("<td>" + data[i].title + "</td>");
+                tr.append("<td>" + data[i].description + "</td>");
+                tr.append("<td>" + data[i].source + "</td>");
+                tr.append("<td>" + data[i].level + "</td>");
+                tr.append("<td>" + data[i].category + "</td>");
+                tr.append("<td>" + data[i].foodType + "</td>");
+                tr.append('<td><button onclick="deleteTipp(' + i + ')" class="btn btn-danger">Delete</button></td>');
+                //tr.append("<td>" + data[i].score + "</td>");
+                $('table').append(tr);
+            }
+        }).catch(err => {
+            console.log(err)
+            alert("Error Loading Tipps")
+        });
+    });
+
+    function deleteTipp(tippNumber) {
+        var deleteTipp = localData[tippNumber]
+        console.log(deleteTipp.id);
+        
+        //var jsonTippNumber = {tippNumber};
+        var apiUrl = 'http://bastianschmalbach.ddns.net/tipps/' + deleteTipp.id;
+        fetch(apiUrl, {
+            method: 'DELETE',
+            body: JSON.stringify(deleteTipp),
+        }).then((response) => {
+            response.json();
+        }).then(data => {
+            alert("Succecfully removed your Tipp")
+        }).catch(err => {
+            alert("There was an Error deleting your Tipp")
+            console.log(err)
+        });
+
+        setTimeout(location.reload.bind(location), 500);
+    }
+</script>
+
+</html>
