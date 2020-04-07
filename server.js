@@ -34,6 +34,18 @@ app.get('/editTipps', function (req, res) {
   res.sendFile('/home/pi/Documents/htmlServer/web-app/editTipps.html');
 });
 
+app.get('/design', function (req, res) {
+  res.sendFile('/home/pi/Documents/htmlServer/web-app/design.html');
+});
+
+app.get('/prototypes', function (req, res) {
+  res.sendFile('/home/pi/Documents/htmlServer/web-app/prototypes.html');
+});
+
+app.get('/documentation', function (req, res) {
+  res.sendFile('/home/pi/Documents/htmlServer/web-app/documentation.html');
+});
+
 app.get('/tipps', function (req, res) {
   res.status(200).send(tipps);
 });
