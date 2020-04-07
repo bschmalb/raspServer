@@ -46,6 +46,10 @@ app.get('/documentation', function (req, res) {
   res.sendFile('/home/pi/Documents/htmlServer/web-app/documentation.html');
 });
 
+app.get('/github', function (req, res) {
+  res.sendFile('/home/pi/Documents/htmlServer/web-app/github.html');
+});
+
 app.get('/tipps', function (req, res) {
   res.status(200).send(tipps);
 });
