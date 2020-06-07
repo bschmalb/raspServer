@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Nachhaltig Leben</title>
     <link rel="shortcut icon" href="">
     <script src="/socket.io/socket.io.js"></script>
@@ -15,9 +15,10 @@
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand active" href="/">The Sustainable App <span class="sr-only">(current)</span></a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand active" href="/">Nachhaltiger Leben<span class="sr-only">(current)</span></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -32,8 +33,8 @@
                     <a class="nav-item nav-link" href="github">GitHub</a>
                 </div>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
     <div class="jumbotron text-center">
         <h1>Mit einer App zu einem nachhaltigeren Leben</h1>
         <p>Work in Progress!</p>
@@ -43,15 +44,18 @@
         <div class="row">
             <div class="col-sm-4 text-center">
                 <h3>Raspberry Pi Html Server</h3>
-                <p>Zur Übung habe ich zuerst einen Node.js, Express Web-Server über meinen Raspberry Pi laufen lassen. Diese Seite wird jetzt auch von diesem gehostet</p>
+                <p>Zur Übung habe ich zuerst einen Node.js, Express Web-Server über meinen Raspberry Pi laufen lassen.
+                    Diese Seite wird jetzt auch von diesem gehostet</p>
             </div>
             <div class="col-sm-4 text-center">
                 <h3>Rest Server für mobile App</h3>
-                <p>Für das dynamische Content der App, welche ich für das Modul Paxisprojekt an der TH Köln entwickle, entwerfe ich einen RESTful Server. Dieser wurde auch schon mit dieser Seite verbunden</p>
+                <p>Für das dynamische Content der App, welche ich für das Modul Paxisprojekt an der TH Köln entwickle,
+                    entwerfe ich einen RESTful Server. Dieser wurde auch schon mit dieser Seite verbunden</p>
             </div>
             <div class="col-sm-4 text-center">
                 <h3>Dokumentationsseite für das Projekt</h3>
-                <p>Außerdem werde ich auf dieser Seite die Fortschritte zeigen. Designentwürfe und Prototypen werden ebenfalls gezeigt.</p>
+                <p>Außerdem werde ich auf dieser Seite die Fortschritte zeigen. Designentwürfe und Prototypen werden
+                    ebenfalls gezeigt.</p>
             </div>
         </div>
         <br>
@@ -60,10 +64,20 @@
         <div class="container">
             <div class="container text-center col">
                 <h5>Füge Tipps zu einem nachhaltigem Leben zu meiner App hinzu:</h5>
-                <a href="addTipps" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Tipp hinzufügen</a>
+                <a href="addTipps" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Tipp
+                    hinzufügen</a>
                 </button>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>

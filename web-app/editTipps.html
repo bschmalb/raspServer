@@ -8,28 +8,29 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Nachhaltig Leben</title>
     <link rel="shortcut icon" href="">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand active" href="/">The Sustainable App</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">Nachhaltiger Leben</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-item nav-link" href="addTipps">Tipps hinzufügen</a>
-                <a class="nav-item nav-link active" href="editTipps">Tipps bearbeiten<span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="design">Design Ideen </a>
-                <a class="nav-item nav-link" href="prototypes">Prototypen</a>
-                <a class="nav-item nav-link" href="documentation">Dokumentation</a>
-                <a class="nav-item nav-link" href="github">GitHub</a>
-              </div>
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="addTipps">Tipps hinzufügen</a>
+                    <a class="nav-item nav-link active" href="editTipps">Tipps bearbeiten<span
+                            class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="design">Design Ideen </a>
+                    <a class="nav-item nav-link" href="prototypes">Prototypen</a>
+                    <a class="nav-item nav-link" href="documentation">Dokumentation</a>
+                    <a class="nav-item nav-link" href="github">GitHub</a>
+                </div>
             </div>
-          </nav>
         </div>
+    </nav>
     <div class="jumbotron text-center">
         <h1>Mit einer App zu einem nachhaltigeren Leben</h1>
         <p>Work in Progress!</p>
@@ -41,11 +42,9 @@
                 <tr>
                     <!-- <th data-field="id">Tipp ID</th> -->
                     <th data-field="title">Title</th>
-                    <th data-field="description">Beschreibung</th>
                     <th data-field="source">Link</th>
                     <th data-field="level">Level</th>
                     <th data-field="category">Kategorie</th>
-                    <th data-field="foodType">Essesntyp</th>
                     <!-- <th data-field="score">Score</th> -->
                 </tr>
             </thead>
@@ -53,6 +52,15 @@
             </tbody>
         </table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </body>
 
 <script>
@@ -68,11 +76,9 @@
                 tr = $('<tr/>');
                 //tr.append("<td>" + data[i].id + "</td>");
                 tr.append("<td>" + data[i].title + "</td>");
-                tr.append("<td>" + data[i].description + "</td>");
                 tr.append("<td>" + data[i].source + "</td>");
                 tr.append("<td>" + data[i].level + "</td>");
                 tr.append("<td>" + data[i].category + "</td>");
-                tr.append("<td>" + data[i].foodType + "</td>");
                 tr.append('<td><button onclick="deleteTipp(' + i + ')" class="btn btn-danger">Delete</button></td>');
                 //tr.append("<td>" + data[i].score + "</td>");
                 $('table').append(tr);
@@ -86,7 +92,7 @@
     function deleteTipp(tippNumber) {
         var deleteTipp = localData[tippNumber]
         console.log(deleteTipp.id);
-        
+
         //var jsonTippNumber = {tippNumber};
         var apiUrl = 'http://bastianschmalbach.ddns.net/tipps/' + deleteTipp.id;
         fetch(apiUrl, {
