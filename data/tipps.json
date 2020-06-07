@@ -1,34 +1,34 @@
 [
     {
+        "id": "6ae01e3a-4cba-4a57-8a97-a6ff182b9cde",
+        "score": 0,
+        "title": "Saisonale und Regionale Produkte sind umweltfreundlicher als Bio-Produkte",
+        "source": "www.ecosia.com",
+        "level": "Einfach",
+        "category": "Ernährung"
+    },
+    {
+        "id": "96498c18-58ba-4586-ab85-819c1e2b9ae7",
+        "score": 0,
+        "title": "Das ist ein Tipp",
+        "source": "www.googlemaps.de",
+        "level": "Mittel",
+        "category": "Transport"
+    },
+    {
+        "id": "d4d8a031-f368-4de6-b533-2991a8dad4cb",
+        "score": 0,
+        "title": "Nutze waschbare Gemüsenetze anstatt Plastiktüten",
+        "source": "www.google.de",
+        "level": "Einfach",
+        "category": "Ressourcen"
+    },
+    {
         "id": "83e3d7a2-771e-4f1a-a308-bc905c05142e",
         "score": 0,
         "title": "Mein Tipp",
         "source": "google.com",
         "level": "Mittel",
-        "category": "Recycling"
-    },
-    {
-        "id": "52cfc404-266f-46d8-abea-6aac741867e1",
-        "score": 20,
-        "title": "Das ist ein Tipp",
-        "source": "ecosia.de",
-        "level": "Einfach",
-        "category": "Transport"
-    },
-    {
-        "id": "a93d1b60-bc06-469a-8ac2-0c76c55ce237",
-        "score": 9,
-        "title": "Nutze waschbare Gemüsenetze anstatt Plastiktüten",
-        "source": "www.google.de",
-        "level": "Mittel",
-        "category": "Ressourcen"
-    },
-    {
-        "id": "659a3b85-06f6-4c3e-9178-10d75dea5464",
-        "score": 15,
-        "title": "Saisonale und Regionale Produkte sind umweltfreundlicher als Bio-Produkte",
-        "source": "www.ecosia.de",
-        "level": "Einfach",
         "category": "Ernährung"
     }
 ]
