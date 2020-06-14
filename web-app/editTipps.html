@@ -42,9 +42,10 @@
                 <tr>
                     <!-- <th data-field="id">Tipp ID</th> -->
                     <th data-field="title">Title</th>
-                    <th data-field="source">Link</th>
-                    <th data-field="level">Level</th>
                     <th data-field="category">Kategorie</th>
+                    <th data-field="level">Level</th>
+                    <th data-field="source">Link</th>
+                    <th data-field="score">Score</th>
                     <!-- <th data-field="score">Score</th> -->
                 </tr>
             </thead>
@@ -76,9 +77,10 @@
                 tr = $('<tr/>');
                 //tr.append("<td>" + data[i].id + "</td>");
                 tr.append("<td>" + data[i].title + "</td>");
-                tr.append("<td>" + data[i].source + "</td>");
-                tr.append("<td>" + data[i].level + "</td>");
                 tr.append("<td>" + data[i].category + "</td>");
+                tr.append("<td>" + data[i].level + "</td>");
+                tr.append("<td>" + data[i].source + "</td>");
+                tr.append("<td>" + data[i].score + "</td>");
                 tr.append('<td><button onclick="deleteTipp(' + i + ')" class="btn btn-danger">Delete</button></td>');
                 //tr.append("<td>" + data[i].score + "</td>");
                 $('table').append(tr);

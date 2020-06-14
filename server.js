@@ -50,8 +50,17 @@ app.get('/github', function (req, res) {
   res.sendFile('/home/pi/Documents/htmlServer/web-app/github.html');
 });
 
-app.get('/tipps', function (req, res) {
-  res.status(200).send(tipps);
+app.get('/tipps', async function (req, res) {
+  try {
+    var tippList = await tipps.find(req.query)
+    console.log(req.query);
+    print(req.query)
+    res.status(200).send(tippList);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("Serverside Error")
+    
+  }
 });
 
 app.get('/tipps/:id', function (req, res) {
