@@ -51,15 +51,41 @@ app.get('/github', function (req, res) {
 });
 
 app.get('/tipps', async function (req, res) {
+  var filteredTipps = []
   try {
-    var tippList = await tipps.find(req.query)
-    console.log(req.query);
-    print(req.query)
-    res.status(200).send(tippList);
+    if (req.query.minscore != null) {
+      tipps.forEach(element => {
+        if (element.score >= req.query.minscore) filteredTipps.unshift(element);
+      })
+    }
+    else if (req.query.maxscore != null) {
+      tipps.forEach(element => {
+        if (element.score <= req.query.maxscore) filteredTipps.unshift(element);
+      })
+    }
+    else {
+      filteredTipps = tipps
+    }
+
+    /* if (req.query.category != null && req.query.minscore != null) {
+      tipps.forEach(element => {
+        if (element.category === req.query.category && element.score >= req.query.minscore) filteredTipps.unshift(element);
+      })
+    } 
+    else if (req.query.maxscore != null) {
+      tipps.forEach(element => {
+        if (element.score <= req.query.maxscore) filteredTipps.unshift(element);
+      })
+    }
+    else if (req.query.category != null) {
+      tipps.forEach(element => {
+        if (element.category === req.query.category) filteredTipps.unshift(element);
+      })
+    } */ 
+    res.status(200).send(filteredTipps);
   } catch (err) {
     console.log(err);
-    res.status(400).send("Serverside Error")
-    
+    res.status(500).json({ message : 'Serverside Error' });
   }
 });
 
@@ -69,16 +95,39 @@ app.get('/tipps/:id', function (req, res) {
     if (element.id === req.params.id) tipp = element;
   })
   if (tipp.id != undefined) res.status(200).send(tipp);
-  else res.status(404).send("Tipp does not exist");
+  else res.status(404).json({ message : 'Tipp does not exist' });
 });
 
 app.post('/tipps', function (req, res) {
   tipps.unshift(req.body);
   fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
-    if (err) throw err;
+    if (err) {
+      res.status(500).json({ message : 'Serverside Error' })
+      throw err;
+    }
     console.log("Done writing"); // Success 
   });
-  res.send('Post erfolgreich');
+  res.status(201).json({ message: 'Post erfolgreich' } );
+});
+
+app.patch('/tipps/:id', function (req, res) {
+  console.log("patch");
+  
+  for (var i = 0; i < tipps.length; i++) {
+    if (tipps[i].id === req.params.id) {
+      if (req.query.thumb === "down"){
+        tipps[i].score -= 1
+      }
+      else if (req.query.thumb === "up"){
+        tipps[i].score += 1
+      }
+      fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+        if (err) throw err;
+        console.log("Done writing"); // Success 
+      });
+    }
+  }
+  res.status(200).json({ message: 'Patch erfolgreich' } );
 });
 
 app.delete('/tipps/:id', function (req, res) {
