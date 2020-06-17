@@ -1,1 +1,50 @@
-[{"id":"A48EDD57-B448-48B8-9930-E94B43C097E8","title":"Papiertüten sind gar nicht so wow wie man denkt!","source":"quarks.de","level":"Leicht","category":"Recycling","score":0},{"id":"15D37F37-9107-4E4C-B574-FCAD8A6EA7A3","title":"Das Fahrrad anstatt dem Bus nehmen ist noch nachhaltiger!","source":"www.google.de","level":"Mittel","category":"Transport","score":22},{"id":"6ae01e3a-4cba-4a57-8a97-a6ff182b9cde","score":32,"title":"Saisonale und Regionale Produkte sind umweltfreundlicher als Bio-Produkte","source":"www.ecosia.com","level":"Einfach","category":"Ernährung"},{"id":"96498c18-58ba-4586-ab85-819c1e2b9ae7","score":8,"title":"Das ist ein Tipp","source":"www.googlemaps.de","level":"Mittel","category":"Transport"},{"id":"d4d8a031-f368-4de6-b533-2991a8dad4cb","score":30,"title":"Nutze waschbare Gemüsenetze anstatt Plastiktüten","source":"www.google.de","level":"Einfach","category":"Ressourcen"},{"id":"83e3d7a2-771e-4f1a-a308-bc905c05142e","score":10,"title":"Mein Tipp","source":"google.com","level":"Mittel","category":"Ernährung"}]
+[
+    {
+        "id": "A48EDD57-B448-48B8-9930-E94B43C097E8",
+        "title": "Papiertüten sind gar nicht so wow wie man denkt!",
+        "source": "quarks.de",
+        "level": "Leicht",
+        "category": "Recycling",
+        "score": 0
+    },
+    {
+        "id": "15D37F37-9107-4E4C-B574-FCAD8A6EA7A3",
+        "title": "Das Fahrrad anstatt dem Bus nehmen ist noch nachhaltiger!",
+        "source": "www.google.de",
+        "level": "Mittel",
+        "category": "Transport",
+        "score": 22
+    },
+    {
+        "id": "6ae01e3a-4cba-4a57-8a97-a6ff182b9cde",
+        "score": 32,
+        "title": "Saisonale und Regionale Produkte sind umweltfreundlicher als Bio-Produkte",
+        "source": "www.ecosia.com",
+        "level": "Einfach",
+        "category": "Ernährung"
+    },
+    {
+        "id": "96498c18-58ba-4586-ab85-819c1e2b9ae7",
+        "score": 9,
+        "title": "Das ist ein Tipp",
+        "source": "www.googlemaps.de",
+        "level": "Mittel",
+        "category": "Transport"
+    },
+    {
+        "id": "d4d8a031-f368-4de6-b533-2991a8dad4cb",
+        "score": 30,
+        "title": "Nutze waschbare Gemüsenetze anstatt Plastiktüten",
+        "source": "www.google.de",
+        "level": "Einfach",
+        "category": "Ressourcen"
+    },
+    {
+        "id": "83e3d7a2-771e-4f1a-a308-bc905c05142e",
+        "score": 9,
+        "title": "Mein Tipp",
+        "source": "google.com",
+        "level": "Mittel",
+        "category": "Ernährung"
+    }
+]

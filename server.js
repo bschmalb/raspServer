@@ -22,6 +22,10 @@ app.use(function (req, res, next) {
   next();
 });
 
+const usersRouter = require('./routes/users')
+app.use('/users', usersRouter)
+
+
 app.get('/', function (req, res) {
   res.sendFile('/home/pi/Documents/htmlServer/web-app/index.html');
 });
