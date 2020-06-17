@@ -40,7 +40,7 @@ router.post('/', function (req, res) {
     var exists = false
     users.forEach(element => {
         if (element.id === req.body.id) {
-            console.log("Der User existiert schon")
+            console.log("User already exists")
             exists = true
             return
         }
@@ -49,13 +49,12 @@ router.post('/', function (req, res) {
         res.status(200).json({ message: 'User existiert schon' });
     } else {
         users.unshift(req.body);
-        console.log(users)
         fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
             if (err) {
                 res.status(500).json({ message: 'Serverside Error' })
                 throw err;
             }
-            console.log("Done writing"); // Success 
+            console.log("User successfully added"); // Success 
         });
         res.status(201).json({ message: 'User erfolgreich erstellt erfolgreich' });
     }
@@ -64,27 +63,58 @@ router.post('/', function (req, res) {
 
 
 router.patch('/:id', function (req, res) {
-    var user = {}
+    var userIndex = null
 
-    users.forEach(element => {
-        if (element.id === req.body.id) user = element
-    })
-
-    for (var i = 0; i < tipps.length; i++) {
-        if (tipps[i].id === req.params.id) {
-            if (req.query.thumb === "down") {
-                tipps[i].score -= 1
-            }
-            else if (req.query.thumb === "up") {
-                tipps[i].score += 1
-            }
-            fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
-                if (err) throw err;
-                console.log("Done writing"); // Success 
-            });
+    for (var i = 0; i < users.length; i++) {
+        if (users[i].id === req.params.id) {
+            userIndex = i
         }
     }
-    res.status(200).json({ message: 'Patch erfolgreich' });
+
+    try {
+        if (req.body.name != null && userIndex != null){
+            users[userIndex].name = req.body.name
+        }
+        if (req.body.checkedTipps != null && userIndex != null){
+            var tippChecked = false
+            var tippIndex = null
+            for (var i = 0; i < users[userIndex].checkedTipps.length; i++) {
+                if (users[userIndex].checkedTipps[i] === req.body.checkedTipps) {
+                    tippIndex = i
+                    tippChecked = true
+                }
+            }
+            console.log(tippIndex);
+            console.log(tippChecked);
+            
+            if (tippChecked && tippIndex != null) {
+                console.log("Der Tipp ist nicht mehr abgehackt")
+                users[userIndex].checkedTipps.splice(tippIndex, 1);
+                fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                    if (err) {
+                      res.status(500).json({ message : 'Serverside Error' })
+                      throw err;
+                    }
+                    console.log("Done writing"); // Success 
+                  });
+            } else {
+                console.log("Der Tipp ist jetzt abgehakt")
+                users[userIndex].checkedTipps.unshift(req.body.checkedTipps)
+                fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                    if (err) {
+                      res.status(500).json({ message : 'Serverside Error' })
+                      throw err;
+                    }
+                    console.log("Done writing"); // Success 
+                  });
+            }
+        }
+        res.status(200).json({ message: 'Patch erfolgreich' });
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ message: err });
+        
+    }
 });
 
 /*
