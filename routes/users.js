@@ -88,7 +88,6 @@ router.patch('/:id', function (req, res) {
             console.log(tippChecked);
             
             if (tippChecked && tippIndex != null) {
-                console.log("Der Tipp ist nicht mehr abgehackt")
                 users[userIndex].checkedTipps.splice(tippIndex, 1);
                 fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
                     if (err) {
@@ -109,7 +108,40 @@ router.patch('/:id', function (req, res) {
                   });
             }
         }
-        res.status(200).json({ message: 'Patch erfolgreich' });
+        if (req.body.savedTipps != null && userIndex != null){
+            var tippSaved = false
+            var tippIndex = null
+            for (var i = 0; i < users[userIndex].savedTipps.length; i++) {
+                if (users[userIndex].savedTipps[i] === req.body.savedTipps) {
+                    tippIndex = i
+                    tippSaved = true
+                }
+            }
+            console.log(tippIndex);
+            console.log(tippSaved);
+            
+            if (tippSaved && tippIndex != null) {
+                users[userIndex].savedTipps.splice(tippIndex, 1);
+                fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                    if (err) {
+                      res.status(500).json({ message : 'Serverside Error' })
+                      throw err;
+                    }
+                    console.log("Done writing"); // Success 
+                  });
+            } else {
+                console.log("Der Tipp ist jetzt abgehakt")
+                users[userIndex].savedTipps.unshift(req.body.savedTipps)
+                fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                    if (err) {
+                      res.status(500).json({ message : 'Serverside Error' })
+                      throw err;
+                    }
+                    console.log("Done writing"); // Success 
+                  });
+            }
+        }
+        res.status(200).json(users[userIndex]);
     } catch (err) {
         console.log(err);
         res.status(400).json({ message: err });
