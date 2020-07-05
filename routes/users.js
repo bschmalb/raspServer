@@ -4,22 +4,9 @@ const fs = require('fs');
 
 const users = require("/home/pi/Documents/htmlServer/data/users.json");
 
+
 router.get('/', async function (req, res) {
-    var filteredTipps = []
     try {
-        /* if (req.query.minscore != null) {
-          tipps.forEach(element => {
-            if (element.score >= req.query.minscore) filteredTipps.unshift(element);
-          })
-        }
-        else if (req.query.maxscore != null) {
-          tipps.forEach(element => {
-            if (element.score <= req.query.maxscore) filteredTipps.unshift(element);
-          })
-        }
-        else {
-          filteredTipps = tipps
-        } */
         res.status(200).send(users);
     } catch (err) {
         console.log(err);
@@ -72,10 +59,10 @@ router.patch('/:id', function (req, res) {
     }
 
     try {
-        if (req.body.name != null && userIndex != null){
+        if (req.body.name != null && userIndex != null) {
             users[userIndex].name = req.body.name
         }
-        if (req.body.checkedTipps != null && userIndex != null){
+        if (req.body.checkedTipps != null && userIndex != null) {
             var tippChecked = false
             var tippIndex = null
             for (var i = 0; i < users[userIndex].checkedTipps.length; i++) {
@@ -84,31 +71,26 @@ router.patch('/:id', function (req, res) {
                     tippChecked = true
                 }
             }
-            console.log(tippIndex);
-            console.log(tippChecked);
-            
+
             if (tippChecked && tippIndex != null) {
                 users[userIndex].checkedTipps.splice(tippIndex, 1);
                 fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
                     if (err) {
-                      res.status(500).json({ message : 'Serverside Error' })
-                      throw err;
+                        res.status(500).json({ message: 'Serverside Error' })
+                        throw err;
                     }
-                    console.log("Done writing"); // Success 
-                  });
+                });
             } else {
-                console.log("Der Tipp ist jetzt abgehakt")
                 users[userIndex].checkedTipps.unshift(req.body.checkedTipps)
                 fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
                     if (err) {
-                      res.status(500).json({ message : 'Serverside Error' })
-                      throw err;
+                        res.status(500).json({ message: 'Serverside Error' })
+                        throw err;
                     }
-                    console.log("Done writing"); // Success 
-                  });
+                });
             }
         }
-        if (req.body.savedTipps != null && userIndex != null){
+        if (req.body.savedTipps != null && userIndex != null) {
             var tippSaved = false
             var tippIndex = null
             for (var i = 0; i < users[userIndex].savedTipps.length; i++) {
@@ -119,55 +101,131 @@ router.patch('/:id', function (req, res) {
             }
             console.log(tippIndex);
             console.log(tippSaved);
-            
+
             if (tippSaved && tippIndex != null) {
                 users[userIndex].savedTipps.splice(tippIndex, 1);
                 fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
                     if (err) {
-                      res.status(500).json({ message : 'Serverside Error' })
-                      throw err;
+                        res.status(500).json({ message: 'Serverside Error' })
+                        throw err;
                     }
-                    console.log("Done writing"); // Success 
-                  });
+                });
             } else {
-                console.log("Der Tipp ist jetzt abgehakt")
                 users[userIndex].savedTipps.unshift(req.body.savedTipps)
                 fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
                     if (err) {
-                      res.status(500).json({ message : 'Serverside Error' })
-                      throw err;
+                        res.status(500).json({ message: 'Serverside Error' })
+                        throw err;
                     }
-                    console.log("Done writing"); // Success 
-                  });
+                });
             }
+        }
+        if (req.body.checkedChallenges != null && userIndex != null) {
+            var challengeChecked = false
+            var challengeIndex = null
+            for (var i = 0; i < users[userIndex].checkedChallenges.length; i++) {
+                if (users[userIndex].checkedChallenges[i] === req.body.checkedChallenges) {
+                    challengeIndex = i
+                    challengeChecked = true
+                }
+            }
+            console.log(challengeIndex);
+            console.log(challengeChecked);
+
+            if (challengeChecked && challengeIndex != null) {
+                users[userIndex].checkedChallenges.splice(challengeIndex, 1);
+                fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                    if (err) {
+                        res.status(500).json({ message: 'Serverside Error' })
+                        throw err;
+                    }
+                });
+            } else {
+                users[userIndex].checkedChallenges.unshift(req.body.checkedChallenges)
+                fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                    if (err) {
+                        res.status(500).json({ message: 'Serverside Error' })
+                        throw err;
+                    }
+                });
+            }
+        }
+        if (req.body.savedChallenges != null && userIndex != null) {
+            var challengeSaved = false
+            var challengeIndex = null
+            for (var i = 0; i < users[userIndex].savedChallenges.length; i++) {
+                if (users[userIndex].savedChallenges[i] === req.body.savedChallenges) {
+                    challengeIndex = i
+                    challengeSaved = true
+                }
+            }
+            console.log(challengeIndex);
+            console.log(challengeSaved);
+
+            if (challengeSaved && challengeIndex != null) {
+                users[userIndex].savedChallenges.splice(challengeIndex, 1);
+                fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                    if (err) {
+                        res.status(500).json({ message: 'Serverside Error' })
+                        throw err;
+                    }
+                });
+            } else {
+                users[userIndex].savedChallenges.unshift(req.body.savedChallenges)
+                fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                    if (err) {
+                        res.status(500).json({ message: 'Serverside Error' })
+                        throw err;
+                    }
+                });
+            }
+        }
+        if (req.body.log != null && userIndex != null) {
+
+            if (users[userIndex].log == null) {
+                console.log("lg exists nicht");
+                users[userIndex].log = []
+            }
+            users[userIndex].log.push(req.body.log)
+
+            console.log("Log push" + req.body.log);
+            
+
+            fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+                if (err) {
+                    res.status(500).json({ message: 'Serverside Error' })
+                    throw err;
+                }
+                console.log("Done writing"); // Success 
+            });
         }
         res.status(200).json(users[userIndex]);
     } catch (err) {
         console.log(err);
         res.status(400).json({ message: err });
-        
+
     }
 });
 
-/*
+
 router.delete('/:id', function (req, res) {
-    for (var i = 0; i < tipps.length; i++) {
-        if (tipps[i].id === req.params.id) {
-            console.log(tipps[i]);
-            tipps.splice(i, 1);
-            fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+    for (var i = 0; i < users.length; i++) {
+        if (users[i].id === req.params.id) {
+            console.log(users[i]);
+            users.splice(i, 1);
+            fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
                 if (err) throw err;
                 console.log("Done writing"); // Success 
             });
         }
     }
-    res.status(200).send(tipps);
+    res.status(200).send(users);
 
     /* tipps.splice(req.body.tippNumber, 1)
     fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
       if (err) throw err;
       console.log("Done writing");
-    });
-}); */
+    });*/
+});
 
 module.exports = router

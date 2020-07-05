@@ -21,10 +21,10 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="addTipps">Tipps hinzufügen</a>
-                    <a class="nav-item nav-link active" href="editTipps">Tipps bearbeiten<span
-                            class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="addChallenges">Challenges hinzufügen </a>
-                    <a class="nav-item nav-link" href="editChallenges">Challenges bearbeiten</a>
+                    <a class="nav-item nav-link" href="editTipps">Tipps bearbeiten</a>
+                    <a class="nav-item nav-link" href="addChallenges">Challenges hinzufügen</a>
+                    <a class="nav-item nav-link active" href="editChallenges">Challenges bearbeiten<span
+                        class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="design">Design Ideen </a>
                     <a class="nav-item nav-link" href="prototypes">Prototypen</a>
                     <a class="nav-item nav-link" href="documentation">Dokumentation</a>
@@ -46,8 +46,8 @@
                     <th data-field="title">Title</th>
                     <th data-field="category">Kategorie</th>
                     <th data-field="level">Level</th>
-                    <th data-field="source">Link</th>
                     <th data-field="score">Score</th>
+                    <th data-field="participants">Teilnehmer</th>
                     <!-- <th data-field="score">Score</th> -->
                 </tr>
             </thead>
@@ -69,7 +69,7 @@
 <script>
     var localData = {};
     $(document).ready(function () {
-        var apiUrl = 'http://bastianschmalbach.ddns.net/tipps';
+        var apiUrl = 'http://bastianschmalbach.ddns.net/challenges';
         fetch(apiUrl).then((response) => {
             return response.json();
         }).then(data => {
@@ -81,9 +81,9 @@
                 tr.append("<td>" + data[i].title + "</td>");
                 tr.append("<td>" + data[i].category + "</td>");
                 tr.append("<td>" + data[i].level + "</td>");
-                tr.append("<td>" + data[i].source + "</td>");
                 tr.append("<td>" + data[i].score + "</td>");
-                tr.append('<td><button onclick="deleteTipp(' + i + ')" class="btn btn-danger">Delete</button></td>');
+                tr.append("<td>" + data[i].participants + "</td>");
+                tr.append('<td><button onclick="deleteChallenge(' + i + ')" class="btn btn-danger">Delete</button></td>');
                 //tr.append("<td>" + data[i].score + "</td>");
                 $('table').append(tr);
             }
@@ -93,15 +93,15 @@
         });
     });
 
-    function deleteTipp(tippNumber) {
-        var deleteTipp = localData[tippNumber]
-        console.log(deleteTipp.id);
+    function deleteChallenge(challengeNumber) {
+        var deleteChallenge = localData[challengeNumber]
+        console.log(deleteChallenge.id);
 
-        //var jsonTippNumber = {tippNumber};
-        var apiUrl = 'http://bastianschmalbach.ddns.net/tipps/' + deleteTipp.id;
+        //var jsonchallengeNumber = {challengeNumber};
+        var apiUrl = 'http://bastianschmalbach.ddns.net/challenges/' + deleteChallenge.id;
         fetch(apiUrl, {
             method: 'DELETE',
-            body: JSON.stringify(deleteTipp),
+            body: JSON.stringify(deleteChallenge),
         }).then((response) => {
             response.json();
         }).then(data => {

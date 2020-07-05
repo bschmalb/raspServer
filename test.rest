@@ -2,5 +2,22 @@ PATCH  http://bastianschmalbach.ddns.net/users/61B0ABB9-292B-4D6D-B567-639127EDA
 Content-Type: application/json
 
 {
-    "checkedTipps": "15D37F37-9107-4E4C-B574-FCAD8A6EA7A3"
+    "log": {
+       "id": "15D37F37-9107-4E4C-B574-FCAD8A6EA7A3",
+       "kilometer": "2",
+       "kilometer": "2",
+       "kilometer": "2",
+       "kilometer": "2",
+       "kilometer": "2",
+       "kilometer": "2",
+       "kilometer": "2"
+       }
 }
+
+###
+
+GET http://bastianschmalbach.ddns.net/challenges
+
+###
+
+DELETE http://bastianschmalbach.ddns.net/challenges/

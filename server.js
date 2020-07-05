@@ -23,7 +23,9 @@ app.use(function (req, res, next) {
 });
 
 const usersRouter = require('./routes/users')
+const challengesRouter = require('./routes/challenges')
 app.use('/users', usersRouter)
+app.use('/challenges', challengesRouter)
 
 
 app.get('/', function (req, res) {
@@ -36,6 +38,14 @@ app.get('/addTipps', function (req, res) {
 
 app.get('/editTipps', function (req, res) {
   res.sendFile('/home/pi/Documents/htmlServer/web-app/editTipps.html');
+});
+
+app.get('/addChallenges', function (req, res) {
+  res.sendFile('/home/pi/Documents/htmlServer/web-app/addChallenges.html');
+});
+
+app.get('/editChallenges', function (req, res) {
+  res.sendFile('/home/pi/Documents/htmlServer/web-app/editChallenges.html');
 });
 
 app.get('/design', function (req, res) {
@@ -152,14 +162,6 @@ app.delete('/tipps/:id', function (req, res) {
     if (err) throw err;
     console.log("Done writing");
   });*/
-});
-
-app.get('/challenges', function (req, res) {
-  fs.readFile('data/challenges.json', (err, data) => {
-    if (err) throw err;
-    let challenges = JSON.parse(data);
-    res.status(200).send(JSON.stringify(challenges))
-  });
 });
 
 io.on('connection', (client) => {

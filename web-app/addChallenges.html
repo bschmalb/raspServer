@@ -21,10 +21,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="addTipps">Tipps hinzufügen<span
-                            class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="addTipps">Tipps hinzufügen</a>
                     <a class="nav-item nav-link" href="editTipps">Tipps bearbeiten</a>
-                    <a class="nav-item nav-link" href="addChallenges">Challenges hinzufügen </a>
+                    <a class="nav-item nav-link active" href="addChallenges">Challenges hinzufügen<span
+                        class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="editChallenges">Challenges bearbeiten</a>
                     <a class="nav-item nav-link" href="design">Design Ideen </a>
                     <a class="nav-item nav-link" href="prototypes">Prototypen</a>
@@ -44,42 +44,28 @@
     <div class="container">
         <form>
             <div class="form-group">
-                <label for="title">Titel des Tipps</label>
+                <label for="title">Titel der Challenge</label>
                 <input type="text" class="form-control" id="title" name="title"
                     placeholder="Kaufe nachhaltige Produkte!" required>
             </div>
             <div class="form-group">
-                <label for="tippSource1">Links und Quellen (optional)</label>
-                <div class="row">
-                    <div class="col">
-                        <input type="text" class="form-control" id="tippSource1" name="source" placeholder="Quelle 1">
-                    </div>
-                    <!-- <div class="col">
-                        <input type="text" class="form-control" id="tippSource2" placeholder="Quelle 2">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" id="tippSource3" placeholder="Quelle 3">
-                    </div> -->
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="tippLevel">Level des Tipps</label>
-                <select class="form-control" id="tippLevel" name="level">
+                <label for="challengeLevel">Level der Challenge</label>
+                <select class="form-control" id="challengeLevel" name="level">
                     <option>Einfach</option>
                     <option>Mittel</option>
                     <option>Schwer</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="tippCategory">Kategorie des Tipps</label>
-                <select class="form-control" id="tippCategory" name="category">
+                <label for="challengeCategory">Kategorie der Challenge</label>
+                <select class="form-control" id="challengeCategory" name="category">
                     <option>Ernährung</option>
                     <option>Transport</option>
                     <option>Recycling</option>
                     <option>Ressourcen</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-success">Tipp eintragen</button>
+            <button type="submit" class="btn btn-success">Challenge eintragen</button>
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -103,6 +89,8 @@
         object[id] = uuidv4();
         var score = "score";
         object[score] = 20;
+        var participants = "participants";
+        object[participants] = 0;
         var official = "official";
         object[official] = "Offiziell";
         obj.forEach(function (value, key) {
@@ -110,17 +98,17 @@
             object[name] = value.value;
         });
 
-        var apiUrl = 'http://bastianschmalbach.ddns.net/tipps';
+        var apiUrl = 'http://bastianschmalbach.ddns.net/challenges';
         fetch(apiUrl, {
             method: 'POST',
             body: JSON.stringify(object),
         }).then((response) => {
             //response.json();
         }).then(data => {
-            alert("Succecfully added your Tipp")
+            alert("Succecfully added your Challenge")
             location.reload();
         }).catch(err => {
-            alert("There was an Error submitting your Tipp")
+            alert("There was an Error submitting your Challenge")
             console.log(err)
         });
 
