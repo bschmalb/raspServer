@@ -76,27 +76,12 @@ app.get('/tipps', async function (req, res) {
       tipps.forEach(element => {
         if (element.score <= req.query.maxscore) filteredTipps.unshift(element);
       })
+      console.log(filteredTipps);
     }
     else {
       filteredTipps = tipps
     }
-
-    /* if (req.query.category != null && req.query.minscore != null) {
-      tipps.forEach(element => {
-        if (element.category === req.query.category && element.score >= req.query.minscore) filteredTipps.unshift(element);
-      })
-    } 
-    else if (req.query.maxscore != null) {
-      tipps.forEach(element => {
-        if (element.score <= req.query.maxscore) filteredTipps.unshift(element);
-      })
-    }
-    else if (req.query.category != null) {
-      tipps.forEach(element => {
-        if (element.category === req.query.category) filteredTipps.unshift(element);
-      })
-    } */ 
-    res.status(200).send(filteredTipps);
+    res.status(200).json(filteredTipps);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message : 'Serverside Error' });
@@ -113,7 +98,7 @@ app.get('/tipps/:id', function (req, res) {
 });
 
 app.post('/tipps', function (req, res) {
-  tipps.unshift(req.body);
+  tipps.push(req.body);
   fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
     if (err) {
       res.status(500).json({ message : 'Serverside Error' })

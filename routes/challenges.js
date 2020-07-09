@@ -24,7 +24,7 @@ router.get('/:id', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    challenges.unshift(req.body);
+    challenges.push(req.body);
     fs.writeFile("/home/pi/Documents/htmlServer/data/challenges.json", JSON.stringify(challenges), err => {
         if (err) {
             res.status(500).json({ message: 'Serverside Error' })

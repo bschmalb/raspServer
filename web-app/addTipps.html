@@ -65,7 +65,7 @@
             <div class="form-group">
                 <label for="tippLevel">Level des Tipps</label>
                 <select class="form-control" id="tippLevel" name="level">
-                    <option>Einfach</option>
+                    <option>Leicht</option>
                     <option>Mittel</option>
                     <option>Schwer</option>
                 </select>
@@ -102,7 +102,9 @@
         var id = "id"
         object[id] = uuidv4();
         var score = "score";
-        object[score] = 20;
+        object[score] = 21;
+        var postedBy = "postedBy";
+        object[postedBy] = "Admin";
         var official = "official";
         object[official] = "Offiziell";
         obj.forEach(function (value, key) {

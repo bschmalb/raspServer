@@ -35,7 +35,7 @@ router.post('/', function (req, res) {
     if (exists) {
         res.status(200).json({ message: 'User existiert schon' });
     } else {
-        users.unshift(req.body);
+        users.push(req.body);
         fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
             if (err) {
                 res.status(500).json({ message: 'Serverside Error' })
@@ -55,6 +55,8 @@ router.patch('/:id', function (req, res) {
     for (var i = 0; i < users.length; i++) {
         if (users[i].id === req.params.id) {
             userIndex = i
+            console.log("userindex = i");
+            
         }
     }
 
@@ -69,10 +71,12 @@ router.patch('/:id', function (req, res) {
                 if (users[userIndex].checkedTipps[i] === req.body.checkedTipps) {
                     tippIndex = i
                     tippChecked = true
+                    console.log("tippIndex = i");
                 }
             }
 
             if (tippChecked && tippIndex != null) {
+                console.log("delete Tipp");
                 users[userIndex].checkedTipps.splice(tippIndex, 1);
                 fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
                     if (err) {
@@ -81,6 +85,7 @@ router.patch('/:id', function (req, res) {
                     }
                 });
             } else {
+                console.log("add Tipp");
                 users[userIndex].checkedTipps.unshift(req.body.checkedTipps)
                 fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
                     if (err) {

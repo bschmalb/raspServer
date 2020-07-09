@@ -1,23 +1,24 @@
-PATCH  http://bastianschmalbach.ddns.net/users/61B0ABB9-292B-4D6D-B567-639127EDAECA
-Content-Type: application/json
-
-{
-    "log": {
-       "id": "15D37F37-9107-4E4C-B574-FCAD8A6EA7A3",
-       "kilometer": "2",
-       "kilometer": "2",
-       "kilometer": "2",
-       "kilometer": "2",
-       "kilometer": "2",
-       "kilometer": "2",
-       "kilometer": "2"
-       }
-}
+PATCH  http://bastianschmalbach.ddns.net/tipps/241DA71E-B5BE-4E85-8065-5EB854A76578?thumb=up
 
 ###
 
-GET http://bastianschmalbach.ddns.net/challenges
+GET http://bastianschmalbach.ddns.net/tipps
 
 ###
 
 DELETE http://bastianschmalbach.ddns.net/challenges/
+
+###
+
+POST http://bastianschmalbach.ddns.net/users
+Content-Type: application/json
+
+{
+    "id": "Admin",
+    "level": 0,
+    "checkedTipps": [],
+    "savedTipps": [],
+    "checkedChallenges": [],
+    "savedChallenges": [],
+    "log": []
+}
