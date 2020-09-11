@@ -65,88 +65,81 @@ app.get('/github', function (req, res) {
 });
 
 app.get('/tipps', async function (req, res) {
-  var filteredTipps = []
   try {
     if (req.query.minscore != null) {
-      tipps.forEach(element => {
-        if (element.score >= req.query.minscore) filteredTipps.unshift(element);
-      })
+      var filteredTipps = tipps.filter(element => element.score >= req.query.minscore)
     }
     else if (req.query.maxscore != null) {
-      tipps.forEach(element => {
-        if (element.score <= req.query.maxscore) filteredTipps.unshift(element);
-      })
-      console.log(filteredTipps);
+      var filteredTipps = tipps.filter(element => element.score <= req.query.maxscore)
     }
     else {
-      filteredTipps = tipps
+      var filteredTipps = tipps
     }
     res.status(200).json(filteredTipps);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message : 'Serverside Error' });
+    res.status(500).json({ message: 'Serverside Error' });
   }
 });
 
 app.get('/tipps/:id', function (req, res) {
-  var tipp = {};
-  tipps.forEach(element => {
-    if (element.id === req.params.id) tipp = element;
-  })
-  if (tipp.id != undefined) res.status(200).send(tipp);
-  else res.status(404).json({ message : 'Tipp does not exist' });
+  var tipp = tipps.find(element => element.id == req.params.id)
+  if (tipp != undefined) res.status(200).send(tipp);
+  else res.status(404).json({ message: 'Tipp does not exist' });
 });
 
 app.post('/tipps', function (req, res) {
   tipps.push(req.body);
   fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
     if (err) {
-      res.status(500).json({ message : 'Serverside Error' })
+      res.status(500).json({ message: 'Serverside Error' })
       throw err;
     }
-    console.log("Done writing"); // Success 
   });
-  res.status(201).json({ message: 'Post erfolgreich' } );
+  res.status(201).json({ message: 'Post erfolgreich' });
 });
 
 app.patch('/tipps/:id', function (req, res) {
-  console.log("patch");
-  
-  for (var i = 0; i < tipps.length; i++) {
-    if (tipps[i].id === req.params.id) {
-      if (req.query.thumb === "down"){
-        tipps[i].score -= 1
-      }
-      else if (req.query.thumb === "up"){
-        tipps[i].score += 1
-      }
-      fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
-        if (err) throw err;
-        console.log("Done writing"); // Success 
-      });
+
+  var i = tipps.findIndex(element => element.id == req.params.id)
+
+  if (i > -1) {
+    if (req.query.thumb === "down") {
+      tipps[i].score -= 1
     }
+    else if (req.query.thumb === "up") {
+      tipps[i].score += 1
+    }
+    fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+      if (err) throw err;
+    });
+    res.status(200).json({ message: 'Patch erfolgreich' });
   }
-  res.status(200).json({ message: 'Patch erfolgreich' } );
+  else if (i == -1) {
+    res.status(404).json({ message: 'Tipp does not exist' })
+  }
+  else {
+    res.status(500).json({ message: 'Serverside Error' })
+  }
 });
 
 app.delete('/tipps/:id', function (req, res) {
-  for (var i = 0; i < tipps.length; i++) {
-    if (tipps[i].id === req.params.id) {
-      console.log(tipps[i]);
-      tipps.splice(i, 1);
-      fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
-        if (err) throw err;
-        console.log("Done writing"); // Success 
-      });
-    }
-  }
-  res.status(200).send(tipps);
 
-  /* tipps.splice(req.body.tippNumber, 1)
-  fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
-    if (err) throw err;
-    console.log("Done writing");
-  });*/
+  var i = tipps.findIndex(element => element.id == req.params.id)
+
+  if (i > -1) {
+    tipps.splice(i, 1);
+    fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+      if (err) throw err;
+    });
+    res.status(200).json({ message: 'Tipp successfull deleted' });
+  }
+  else if (i == -1) {
+    res.status(404).json({ message: 'Tipp does not exist' })
+  }
+  else {
+    res.status(500).json({ message: 'Serverside Error' })
+  }
 });
 
 io.on('connection', (client) => {

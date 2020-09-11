@@ -1,12 +1,12 @@
-PATCH  http://bastianschmalbach.ddns.net/tipps/241DA71E-B5BE-4E85-8065-5EB854A76578?thumb=up
+PATCH  http://bastianschmalbach.ddns.net/tipps/26D0346F-0BC0-4877-9374-3A19CF17F1C1?thumb=up
 
 ###
 
-GET http://bastianschmalbach.ddns.net/tipps
+GET http://bastianschmalbach.ddns.net/users
 
 ###
 
-DELETE http://bastianschmalbach.ddns.net/challenges/
+DELETE http://bastianschmalbach.ddns.net/users/Admin2
 
 ###
 
@@ -14,11 +14,20 @@ POST http://bastianschmalbach.ddns.net/users
 Content-Type: application/json
 
 {
-    "id": "Admin",
+    "id": "Admin2",
     "level": 0,
     "checkedTipps": [],
     "savedTipps": [],
     "checkedChallenges": [],
     "savedChallenges": [],
     "log": []
+}
+
+###
+
+PATCH http://bastianschmalbach.ddns.net/users/4CF96C10-2802-4C1C-8E88-9353332A9890
+Content-Type: application/json
+
+{
+    "checkedTipps": "123"
 }
