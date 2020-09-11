@@ -24,8 +24,10 @@ app.use(function (req, res, next) {
 
 const usersRouter = require('./routes/users')
 const challengesRouter = require('./routes/challenges')
+const factsRouter = require('./routes/facts')
 app.use('/users', usersRouter)
 app.use('/challenges', challengesRouter)
+app.use('/facts', factsRouter)
 
 
 app.get('/', function (req, res) {
@@ -67,10 +69,10 @@ app.get('/github', function (req, res) {
 app.get('/tipps', async function (req, res) {
   try {
     if (req.query.minscore != null) {
-      var filteredTipps = tipps.filter(element => element.score >= req.query.minscore)
+      var filteredTipps = await tipps.filter(element => element.score >= req.query.minscore)
     }
     else if (req.query.maxscore != null) {
-      var filteredTipps = tipps.filter(element => element.score <= req.query.maxscore)
+      var filteredTipps = await tipps.filter(element => element.score <= req.query.maxscore)
     }
     else {
       var filteredTipps = tipps
@@ -82,8 +84,8 @@ app.get('/tipps', async function (req, res) {
   }
 });
 
-app.get('/tipps/:id', function (req, res) {
-  var tipp = tipps.find(element => element.id == req.params.id)
+app.get('/tipps/:id', async function (req, res) {
+  var tipp = await tipps.find(element => element.id == req.params.id)
   if (tipp != undefined) res.status(200).send(tipp);
   else res.status(404).json({ message: 'Tipp does not exist' });
 });
@@ -99,9 +101,9 @@ app.post('/tipps', function (req, res) {
   res.status(201).json({ message: 'Post erfolgreich' });
 });
 
-app.patch('/tipps/:id', function (req, res) {
+app.patch('/tipps/:id', async function (req, res) {
 
-  var i = tipps.findIndex(element => element.id == req.params.id)
+  var i = await tipps.findIndex(element => element.id == req.params.id)
 
   if (i > -1) {
     if (req.query.thumb === "down") {
@@ -123,9 +125,9 @@ app.patch('/tipps/:id', function (req, res) {
   }
 });
 
-app.delete('/tipps/:id', function (req, res) {
+app.delete('/tipps/:id', async function (req, res) {
 
-  var i = tipps.findIndex(element => element.id == req.params.id)
+  var i = await tipps.findIndex(element => element.id == req.params.id)
 
   if (i > -1) {
     tipps.splice(i, 1);

@@ -14,14 +14,14 @@ router.get('/', async function (req, res) {
     }
 });
 
-router.get('/:id', function (req, res) {
-    var user = users.find(element => element.id == req.params.id)
+router.get('/:id', async function (req, res) {
+    var user = await users.find(element => element.id == req.params.id)
     if (user != undefined) res.status(200).send(user);
     else res.status(404).json({ message: 'Tipp does not exist' });
 });
 
-router.post('/', function (req, res) {
-    var user = users.find(element => element.id == req.body.id)
+router.post('/', async function (req, res) {
+    var user = await users.find(element => element.id == req.body.id)
     if (user != undefined) {
         res.status(200).json({ message: 'User existiert schon' });
     } else {
@@ -38,9 +38,9 @@ router.post('/', function (req, res) {
 
 
 
-router.patch('/:id', function (req, res) {
+router.patch('/:id', async function (req, res) {
 
-    var userIndex = users.findIndex(element => element.id == req.params.id)
+    var userIndex = await users.findIndex(element => element.id == req.params.id)
 
     if (userIndex > -1) {
         try {
@@ -48,7 +48,7 @@ router.patch('/:id', function (req, res) {
                 users[userIndex].name = req.body.name
             }
             if (req.body.checkedTipps != null) {
-                var tippIndex = users[userIndex].checkedTipps.findIndex(element => element == req.body.checkedTipps)
+                var tippIndex = await users[userIndex].checkedTipps.findIndex(element => element == req.body.checkedTipps)
 
                 if (tippIndex > -1) {
                     users[userIndex].checkedTipps.splice(tippIndex, 1);
@@ -69,7 +69,7 @@ router.patch('/:id', function (req, res) {
                 }
             }
             if (req.body.savedTipps != null) {
-                var tippIndex = users[userIndex].savedTipps.findIndex(element => element == req.body.checkedTipps)
+                var tippIndex = await users[userIndex].savedTipps.findIndex(element => element == req.body.checkedTipps)
 
                 if (tippIndex > -1) {
                     users[userIndex].savedTipps.splice(tippIndex, 1);
@@ -90,7 +90,7 @@ router.patch('/:id', function (req, res) {
                 }
             }
             if (req.body.checkedChallenges != null) {
-                var tippIndex = users[userIndex].checkedChallenges.findIndex(element => element == req.body.checkedTipps)
+                var tippIndex = await users[userIndex].checkedChallenges.findIndex(element => element == req.body.checkedTipps)
 
                 if (tippIndex > -1) {
                     users[userIndex].checkedChallenges.splice(tippIndex, 1);
@@ -111,7 +111,7 @@ router.patch('/:id', function (req, res) {
                 }
             }
             if (req.body.savedChallenges != null) {
-                var tippIndex = users[userIndex].savedChallenges.findIndex(element => element == req.body.checkedTipps)
+                var tippIndex = await users[userIndex].savedChallenges.findIndex(element => element == req.body.checkedTipps)
 
                 if (tippIndex > -1) {
                     users[userIndex].savedChallenges.splice(tippIndex, 1);
@@ -162,9 +162,9 @@ router.patch('/:id', function (req, res) {
 });
 
 
-router.delete('/:id', function (req, res) {
+router.delete('/:id', async function (req, res) {
 
-    var i = users.findIndex(element => element.id == req.params.id)
+    var i = await users.findIndex(element => element.id == req.params.id)
   
     if (i > -1) {
       users.splice(i, 1);
