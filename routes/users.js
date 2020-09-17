@@ -47,6 +47,12 @@ router.patch('/:id', async function (req, res) {
             if (req.body.name != null) {
                 users[userIndex].name = req.body.name
             }
+            if (req.body.age != null) {
+                users[userIndex].age = req.body.age
+            }
+            if (req.body.gender != null) {
+                users[userIndex].gender = req.body.gender
+            }
             if (req.body.checkedTipps != null) {
                 var tippIndex = await users[userIndex].checkedTipps.findIndex(element => element == req.body.checkedTipps)
 

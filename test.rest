@@ -2,11 +2,11 @@ PATCH  http://bastianschmalbach.ddns.net/tipps/26D0346F-0BC0-4877-9374-3A19CF17F
 
 ###
 
-GET http://bastianschmalbach.ddns.net/users
+GET http://bastianschmalbach.ddns.net/facts
 
 ###
 
-DELETE http://bastianschmalbach.ddns.net/users/Admin2
+DELETE http://bastianschmalbach.ddns.net/facts/2B83A999-E7FD-4136-8811-84B1B94B9BBC
 
 ###
 
@@ -30,4 +30,20 @@ Content-Type: application/json
 
 {
     "checkedTipps": "123"
+}
+
+###
+
+POST http://bastianschmalbach.ddns.net/facts
+Content-Type: application/json
+
+{
+    "source":"",
+    "category":"Transport",
+    "score":-1,
+    "id":"2B83A999-E7FD-4136-8811-84B1B94B9BBC",
+    "official":"Offiziell",
+    "title":"17 der letzten 18 Jahre waren die heißesten seit 170 Jahren",
+    "level":"Mittel",
+    "postedBy":"8F02B169-1968-4545-893C-8AD514886ADD"
 }

@@ -106,11 +106,17 @@ app.patch('/tipps/:id', async function (req, res) {
   var i = await tipps.findIndex(element => element.id == req.params.id)
 
   if (i > -1) {
-    if (req.query.thumb === "down") {
+    if (req.body.thumb === "down") {
       tipps[i].score -= 1
     }
-    else if (req.query.thumb === "up") {
+    else if (req.body.thumb === "up") {
       tipps[i].score += 1
+    }
+    else if (req.body.thumb === "report") {
+      if (tipps[i].reports == null) tipps[i].reports = 0; 
+      tipps[i].reports += 1
+    } else if (req.body.thumb === "unreport") {
+      tipps[i].reports -= 1
     }
     fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
       if (err) throw err;
