@@ -47,6 +47,17 @@ router.patch('/:id', async function (req, res) {
             if (req.body.name != null) {
                 users[userIndex].name = req.body.name
             }
+            if (req.body.reportedTipps != null) {
+                if (users[userIndex].reportedTipps == null) users[userIndex].reportedTipps = 0;
+                if (req.body.reportedTipps === "report") {
+                    users[userIndex].reportedTipps += 1
+                } else if (req.body.reportedTipps === "unreport") {
+                    users[userIndex].reportedTipps -= 1
+                }
+            }
+            if (req.body.hideInfo != null) {
+                users[userIndex].hideInfo = req.body.hideInfo
+            }
             if (req.body.age != null) {
                 users[userIndex].age = req.body.age
             }
@@ -157,6 +168,7 @@ router.patch('/:id', async function (req, res) {
                     res.status(400).json({ message: err });
                 }
             }
+            res.status(200).json(users[userIndex]);
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: err });
@@ -171,20 +183,20 @@ router.patch('/:id', async function (req, res) {
 router.delete('/:id', async function (req, res) {
 
     var i = await users.findIndex(element => element.id == req.params.id)
-  
+
     if (i > -1) {
-      users.splice(i, 1);
-      fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
-        if (err) throw err;
-      });
-      res.status(200).json({ message: 'User successfull deleted' });
+        users.splice(i, 1);
+        fs.writeFile("/home/pi/Documents/htmlServer/data/users.json", JSON.stringify(users), err => {
+            if (err) throw err;
+        });
+        res.status(200).json({ message: 'User successfull deleted' });
     }
     else if (i == -1) {
-      res.status(404).json({ message: 'User does not exist' })
+        res.status(404).json({ message: 'User does not exist' })
     }
     else {
-      res.status(500).json({ message: 'Serverside Error' })
+        res.status(500).json({ message: 'Serverside Error' })
     }
-  });
+});
 
 module.exports = router

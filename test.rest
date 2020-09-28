@@ -2,7 +2,7 @@ PATCH  http://bastianschmalbach.ddns.net/tipps/26D0346F-0BC0-4877-9374-3A19CF17F
 
 ###
 
-GET http://bastianschmalbach.ddns.net/facts
+GET http://bastianschmalbach.ddns.net/users
 
 ###
 
@@ -25,11 +25,11 @@ Content-Type: application/json
 
 ###
 
-PATCH http://bastianschmalbach.ddns.net/users/4CF96C10-2802-4C1C-8E88-9353332A9890
+PATCH http://bastianschmalbach.ddns.net/users/28B356AF-14A9-46CB-8BD6-1F45E25E75D5
 Content-Type: application/json
 
 {
-    "checkedTipps": "123"
+    "reportedTipps": "report"
 }
 
 ###
