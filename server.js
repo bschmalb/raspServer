@@ -5,7 +5,9 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 const fs = require('fs');
 var cors = require('cors');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+require('dotenv/config')
 
 const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
 
@@ -22,9 +24,11 @@ app.use(function (req, res, next) {
   next();
 });
 
+const tippsRouter = require('./routes/tipps')
 const usersRouter = require('./routes/users')
 const challengesRouter = require('./routes/challenges')
 const factsRouter = require('./routes/facts')
+app.use('/tipps', tippsRouter)
 app.use('/users', usersRouter)
 app.use('/challenges', challengesRouter)
 app.use('/facts', factsRouter)
@@ -66,89 +70,16 @@ app.get('/github', function (req, res) {
   res.sendFile('/home/pi/Documents/htmlServer/web-app/github.html');
 });
 
-app.get('/tipps', async function (req, res) {
-  try {
-    if (req.query.minscore != null) {
-      var filteredTipps = await tipps.filter(element => element.score >= req.query.minscore)
-    }
-    else if (req.query.maxscore != null) {
-      var filteredTipps = await tipps.filter(element => element.score <= req.query.maxscore)
-    }
-    else {
-      var filteredTipps = tipps
-    }
-    res.status(200).json(filteredTipps);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: 'Serverside Error' });
-  }
-});
-
-app.get('/tipps/:id', async function (req, res) {
-  var tipp = await tipps.find(element => element.id == req.params.id)
-  if (tipp != undefined) res.status(200).send(tipp);
-  else res.status(404).json({ message: 'Tipp does not exist' });
-});
-
-app.post('/tipps', function (req, res) {
-  tipps.push(req.body);
-  fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
-    if (err) {
-      res.status(500).json({ message: 'Serverside Error' })
-      throw err;
-    }
+mongoose.connect(
+  process.env.DB_CONNECTION, 
+  {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  })
+  .then(() => console.log('DB Connected!'))
+  .catch(err => {
+  console.log(`DB Connection Error: ${err.message}`);
   });
-  res.status(201).json({ message: 'Post erfolgreich' });
-});
-
-app.patch('/tipps/:id', async function (req, res) {
-
-  var i = await tipps.findIndex(element => element.id == req.params.id)
-
-  if (i > -1) {
-    if (req.body.thumb === "down") {
-      tipps[i].score -= 1
-    }
-    else if (req.body.thumb === "up") {
-      tipps[i].score += 1
-    }
-    if (tipps[i].reports == null) tipps[i].reports = 0; 
-    else if (req.body.thumb === "report") {
-      tipps[i].reports += 1
-    } else if (req.body.thumb === "unreport") {
-      tipps[i].reports -= 1
-    }
-    fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
-      if (err) throw err;
-    });
-    res.status(200).json({ message: 'Patch erfolgreich' });
-  }
-  else if (i == -1) {
-    res.status(404).json({ message: 'Tipp does not exist' })
-  }
-  else {
-    res.status(500).json({ message: 'Serverside Error' })
-  }
-});
-
-app.delete('/tipps/:id', async function (req, res) {
-
-  var i = await tipps.findIndex(element => element.id == req.params.id)
-
-  if (i > -1) {
-    tipps.splice(i, 1);
-    fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
-      if (err) throw err;
-    });
-    res.status(200).json({ message: 'Tipp successfull deleted' });
-  }
-  else if (i == -1) {
-    res.status(404).json({ message: 'Tipp does not exist' })
-  }
-  else {
-    res.status(500).json({ message: 'Serverside Error' })
-  }
-});
 
 io.on('connection', (client) => {
   console.log('A client connected\t', client.id);

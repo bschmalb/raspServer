@@ -12,9 +12,12 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "form_to_object": "^2.0.0",
+    "mongoose": "^5.10.7",
     "ngrok": "^3.2.7",
+    "rfc6902": "^4.0.1",
     "socket.io": "^2.3.0"
   }
 }

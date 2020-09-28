@@ -2,7 +2,7 @@ PATCH  http://bastianschmalbach.ddns.net/tipps/26D0346F-0BC0-4877-9374-3A19CF17F
 
 ###
 
-GET http://bastianschmalbach.ddns.net/users
+GET http://bastianschmalbach.ddns.net/tipps
 
 ###
 
@@ -25,25 +25,38 @@ Content-Type: application/json
 
 ###
 
-PATCH http://bastianschmalbach.ddns.net/users/28B356AF-14A9-46CB-8BD6-1F45E25E75D5
+PATCH http://bastianschmalbach.ddns.net/tipps/5f71b3e6357f713288fef77d
 Content-Type: application/json
 
 {
-    "reportedTipps": "report"
+    "thumb": "up",
+    "thumb": "unreport"
 }
 
 ###
 
-POST http://bastianschmalbach.ddns.net/facts
+PATCH http://bastianschmalbach.ddns.net/tipps/5f71b3e6357f713288fef77d
+Content-Type: application/json
+
+[
+{
+    "op": "replace",
+    "path": "/score",
+    "value": "+=1"
+}
+]
+
+###
+
+POST http://bastianschmalbach.ddns.net/tipps
 Content-Type: application/json
 
 {
     "source":"",
-    "category":"Transport",
-    "score":-1,
-    "id":"2B83A999-E7FD-4136-8811-84B1B94B9BBC",
-    "official":"Offiziell",
-    "title":"17 der letzten 18 Jahre waren die heißesten seit 170 Jahren",
-    "level":"Mittel",
+    "category":"Ernährung",
+    "score": 0,
+    "official":"Community",
+    "title":"Wattepads",
+    "level":"Schwer",
     "postedBy":"8F02B169-1968-4545-893C-8AD514886ADD"
 }

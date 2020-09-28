@@ -1,0 +1,173 @@
+const express = require('express')
+const router = express.Router()
+const fs = require('fs');
+const rfc6902 = require('rfc6902');
+const Tipp = require('../models/Tipp')
+
+const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
+
+router.get('/', async function (req, res) {
+    try {
+        const tipps = await Tipp.find(req.query);
+        res.status(200).json(tipps)
+    } catch (err) {
+        res.status(404).json({ message: err })
+    }
+});
+
+//Old Get
+/* router.get('/', async function (req, res) {
+    try {
+        if (req.query.minscore != null) {
+            var filteredTipps = await tipps.filter(element => element.score >= req.query.minscore)
+        }
+        else if (req.query.maxscore != null) {
+            var filteredTipps = await tipps.filter(element => element.score <= req.query.maxscore)
+        }
+        else {
+            var filteredTipps = tipps
+        }
+        res.status(200).json(filteredTipps);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Serverside Error' });
+    }
+}); */
+
+//Old Get by ID
+/* router.get('/:id', async function (req, res) {
+    var tipp = await tipps.find(element => element.id == req.params.id)
+    if (tipp != undefined) res.status(200).send(tipp);
+    else res.status(404).json({ message: 'Tipp does not exist' });
+}); */
+
+router.get('/:id', async function (req, res) {
+    try {
+        const tipp = await Tipp.findById(req.params.id);
+        res.status(200).json(tipp)
+    } catch (err) {
+        res.status(404).json({ message: err })
+    }
+});
+
+// Old Post
+/* router.post('/', function (req, res) {
+    tipps.push(req.body);
+    fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+        if (err) {
+            res.status(500).json({ message: 'Serverside Error' })
+            throw err;
+        }
+    });
+    res.status(201).json({ message: 'Post erfolgreich' });
+}); */
+
+router.post('/', async function (req, res) {
+    const tipp = new Tipp({
+        title: req.body.title,
+        category: req.body.category,
+        level: req.body.level,
+        source: req.body.source,
+        official: req.body.official,
+        postedBy: req.body.postedBy
+    });
+
+    try {
+        const savedPost = await tipp.save()
+        res.status(200).json(savedPost)
+    }
+    catch (err) {
+        res.status(404).json({ message: err })
+    }
+});
+
+// Old Patch
+/* router.patch('/:id', async function (req, res) {
+
+    var i = await tipps.findIndex(element => element.id == req.params.id)
+
+    if (i > -1) {
+        if (req.body.thumb === "down") {
+            tipps[i].score -= 1
+        }
+        else if (req.body.thumb === "up") {
+            tipps[i].score += 1
+        }
+        if (tipps[i].reports == null) tipps[i].reports = 0;
+        else if (req.body.thumb === "report") {
+            tipps[i].reports += 1
+        } else if (req.body.thumb === "unreport") {
+            tipps[i].reports -= 1
+        }
+        fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+            if (err) throw err;
+        });
+        res.status(200).json({ message: 'Patch erfolgreich' });
+    }
+    else if (i == -1) {
+        res.status(404).json({ message: 'Tipp does not exist' })
+    }
+    else {
+        res.status(500).json({ message: 'Serverside Error' })
+    }
+}); */
+
+router.patch('/:id', async function (req, res) {
+    try {
+        const tipp = await Tipp.findById(req.params.id);
+        
+        if (req.body.thumb === "down") {
+            tipp.score -= 1
+        }
+        else if (req.body.thumb === "up") {
+            tipp.score += 1
+        }
+        else if (req.body.thumb === "report") {
+            tipp.reports += 1
+        } else if (req.body.thumb === "unreport") {
+            tipp.reports -= 1
+        }
+        
+        /* 
+        const patch = req.body;
+        rfc6902.applyPatch(tipp, patch);
+        */
+
+        tipp.save();
+        res.status(200).send(tipp);
+    }
+    catch (err) {
+        res.status(404).json({ message: err })
+    }
+});
+
+// Old Delete
+/* router.delete('/:id', async function (req, res) {
+
+    var i = await tipps.findIndex(element => element.id == req.params.id)
+
+    if (i > -1) {
+        tipps.splice(i, 1);
+        fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+            if (err) throw err;
+        });
+        res.status(200).json({ message: 'Tipp successfull deleted' });
+    }
+    else if (i == -1) {
+        res.status(404).json({ message: 'Tipp does not exist' })
+    }
+    else {
+        res.status(500).json({ message: 'Serverside Error' })
+    }
+}); */
+
+router.delete('/:id', async function (req, res) {
+    try {
+        const deletedTipp = await Tipp.deleteOne({_id: req.params.id})
+        res.status(200).send(deletedTipp);
+    } catch (err) {
+        res.status(404).json({ message: err })
+    }
+});
+
+module.exports = router
