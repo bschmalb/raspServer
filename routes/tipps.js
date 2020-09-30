@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const fs = require('fs');
+const { ServerRequest } = require('http');
 const rfc6902 = require('rfc6902');
 const Tipp = require('../models/Tipp')
 
@@ -8,8 +9,16 @@ const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
 
 router.get('/', async function (req, res) {
     try {
-        const tipps = await Tipp.find(req.query);
-        res.status(200).json(tipps)
+        if (req.query.minscore != null){
+            const tipps = await Tipp.find({score: { $gt: req.query.minscore }})
+            res.status(200).json(tipps)
+        } else if (req.query.maxscore != null) {
+            const tipps = await Tipp.find({score: { $lt: req.query.maxscore }})
+            res.status(200).json(tipps)
+        } else {
+            const tipps = await Tipp.find(req.query);
+            res.status(200).json(tipps)
+        }
     } catch (err) {
         res.status(404).json({ message: err })
     }
@@ -69,12 +78,13 @@ router.post('/', async function (req, res) {
         level: req.body.level,
         source: req.body.source,
         official: req.body.official,
-        postedBy: req.body.postedBy
+        postedBy: req.body.postedBy,
+        score: req.body.score
     });
 
     try {
-        const savedPost = await tipp.save()
-        res.status(200).json(savedPost)
+        const savedTipp = await tipp.save()
+        res.status(200).json({ message: "Tipp erfolgreich gepostet"})
     }
     catch (err) {
         res.status(404).json({ message: err })

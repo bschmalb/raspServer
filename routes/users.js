@@ -1,26 +1,49 @@
 const express = require('express')
 const router = express.Router()
 const fs = require('fs');
+const rfc6902 = require('rfc6902');
+const User = require('../models/User')
 
 const users = require("/home/pi/Documents/htmlServer/data/users.json");
 
 
-router.get('/', async function (req, res) {
+// Old Get
+/* router.get('/', async function (req, res) {
     try {
         res.status(200).send(users);
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Serverside Error' });
     }
+}); */
+
+router.get('/', async function (req, res) {
+    try {
+        const users = await User.find(req.query);
+        res.status(200).json(users)
+    } catch (err) {
+        res.status(404).json({ message: err })
+    }
 });
 
-router.get('/:id', async function (req, res) {
+// Old Get ID
+/* router.get('/:id', async function (req, res) {
     var user = await users.find(element => element.id == req.params.id)
     if (user != undefined) res.status(200).send(user);
     else res.status(404).json({ message: 'Tipp does not exist' });
+}); */
+
+router.get('/:id', async function (req, res) {
+    try {
+        const user = await User.findById(req.params.id);
+        res.status(200).json(user)
+    } catch (err) {
+        res.status(404).json({ message: err })
+    }
 });
 
-router.post('/', async function (req, res) {
+// Old Post
+/* router.post('/', async function (req, res) {
     var user = await users.find(element => element.id == req.body.id)
     if (user != undefined) {
         res.status(200).json({ message: 'User existiert schon' });
@@ -34,11 +57,86 @@ router.post('/', async function (req, res) {
         });
         res.status(201).json({ message: 'User erfolgreich erstellt erfolgreich' });
     }
+}); */
+
+router.post('/', async function (req, res) {
+    const user = new User({
+        phoneId: req.body.phoneId,
+        name: req.body.name,
+        age: req.body.age,
+        gender: req.body.gender,
+        hideInfo: req.body.hideInfo
+    });
+
+    try {
+        const user2 = await User.find( { phoneId: req.body.phoneId })
+        if (user2[0] != undefined){
+            res.status(200).json({ message: "is already user"})
+        } else {
+            const savedUser = await user.save()
+            res.status(200).json(savedUser)
+        }
+    }
+    catch (err) {
+        res.status(404).json({ message: err })
+    }
 });
 
-
-
 router.patch('/:id', async function (req, res) {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (req.body.name != null) {
+            user.name = req.body.name
+        }
+        if (req.body.reportedTipps != null) {
+            if (user.reportedTipps == null) user.reportedTipps = 0;
+            if (req.body.reportedTipps === "report") {
+                user.reportedTipps += 1
+            } else if (req.body.reportedTipps === "unreport") {
+                user.reportedTipps -= 1
+            }
+        }
+        if (req.body.hideInfo != null) {
+            user.hideInfo = req.body.hideInfo
+        }
+        if (req.body.age != null) {
+            user.age = req.body.age
+        }
+        if (req.body.gender != null) {
+            user.gender = req.body.gender
+        }
+        if (req.body.checkedTipps != null) {
+            var tippIndex = await user.checkedTipps.findIndex(element => element == req.body.checkedTipps)
+
+            if (tippIndex > -1) {
+                user.checkedTipps.splice(tippIndex, 1);
+            } else if (tippIndex = -1) {
+                user.checkedTipps.unshift(req.body.checkedTipps)
+            }
+        }
+        if (req.body.savedTipps != null) {
+            var tippIndex = await user.savedTipps.findIndex(element => element == req.body.savedTipps)
+            
+            if (tippIndex > -1) {
+                user.savedTipps.splice(tippIndex, 1);
+            } else if (tippIndex = -1) {
+                user.savedTipps.unshift(req.body.savedTipps)
+            }
+        }
+        if (req.body.log != null) {
+            if (user.log == null) user.log = [];
+
+            user.log.push(req.body.log)
+        }
+        user.save()
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(404).json({ message: err })
+    }
+});
+
+/* router.patch('/:id', async function (req, res) {
 
     var userIndex = await users.findIndex(element => element.id == req.params.id)
 
@@ -177,10 +275,19 @@ router.patch('/:id', async function (req, res) {
     } else {
         res.status(404).json({ message: "User does not exist" });
     }
-});
-
+}); */
 
 router.delete('/:id', async function (req, res) {
+    try {
+        const deletedUser = await User.deleteOne({_id: req.params.id})
+        res.status(200).send(deletedUser);
+    } catch (err) {
+        res.status(404).json({ message: err })
+    }
+});
+
+// Old Delete
+/* router.delete('/:id', async function (req, res) {
 
     var i = await users.findIndex(element => element.id == req.params.id)
 
@@ -197,6 +304,6 @@ router.delete('/:id', async function (req, res) {
     else {
         res.status(500).json({ message: 'Serverside Error' })
     }
-});
+}); */
 
 module.exports = router
