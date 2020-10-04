@@ -4,15 +4,15 @@ const fs = require('fs');
 const rfc6902 = require('rfc6902');
 const Tipp = require('../models/Tipp')
 
-const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
+//const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
 
 router.get('/', async function (req, res) {
     try {
-        if (req.query.minscore != null) {
-            const tipps = await Tipp.find({ score: { $gt: req.query.minscore } })
+        if (req.query.minscore != null){
+            const tipps = await Tipp.find({score: { $gt: req.query.minscore }})
             res.status(200).json(tipps)
         } else if (req.query.maxscore != null) {
-            const tipps = await Tipp.find({ score: { $lt: req.query.maxscore } })
+            const tipps = await Tipp.find({score: { $lt: req.query.maxscore }})
             res.status(200).json(tipps)
         } else {
             const tipps = await Tipp.find(req.query);
@@ -83,7 +83,7 @@ router.post('/', async function (req, res) {
 
     try {
         const savedTipp = await tipp.save()
-        res.status(200).json({ message: "Tipp erfolgreich gepostet" })
+        res.status(200).json({ message: "Tipp erfolgreich gepostet"})
     }
     catch (err) {
         res.status(404).json({ message: err })
@@ -124,7 +124,7 @@ router.post('/', async function (req, res) {
 router.patch('/:id', async function (req, res) {
     try {
         const tipp = await Tipp.findById(req.params.id);
-
+        
         if (req.body.thumb === "down") {
             tipp.score -= 1
         }
@@ -136,19 +136,13 @@ router.patch('/:id', async function (req, res) {
         } else if (req.body.thumb === "unreport") {
             tipp.reports -= 1
         }
-
+        
         /* 
         const patch = req.body;
         rfc6902.applyPatch(tipp, patch);
         */
 
-        if (tipp.score < 4 || tipp.reports > 4) {
-            data.tipps.insert(tipp);
-            data.reportedTipps.remove(tipp);
-            console.log("moved to reportedTipps");
-        } else {
-            tipp.save();
-        }
+        tipp.save();
         res.status(200).send(tipp);
     }
     catch (err) {
@@ -178,7 +172,7 @@ router.patch('/:id', async function (req, res) {
 
 router.delete('/:id', async function (req, res) {
     try {
-        const deletedTipp = await Tipp.deleteOne({ _id: req.params.id })
+        const deletedTipp = await Tipp.deleteOne({_id: req.params.id})
         res.status(200).send(deletedTipp);
     } catch (err) {
         res.status(404).json({ message: err })

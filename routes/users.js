@@ -71,7 +71,7 @@ router.post('/', async function (req, res) {
     try {
         const user2 = await User.find( { phoneId: req.body.phoneId })
         if (user2[0] != undefined){
-            res.status(200).json({ message: "is already user"})
+            res.status(200).json(user2[0])
         } else {
             const savedUser = await user.save()
             res.status(200).json(savedUser)

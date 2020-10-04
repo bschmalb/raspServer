@@ -2,7 +2,7 @@ PATCH  http://bastianschmalbach.ddns.net/tipps/26D0346F-0BC0-4877-9374-3A19CF17F
 
 ###
 
-GET http://bastianschmalbach.ddns.net/tipps
+GET http://bastianschmalbach.ddns.net/reportedTipps
 
 ###
 
@@ -14,20 +14,20 @@ POST http://bastianschmalbach.ddns.net/users
 Content-Type: application/json
 
 {
-    "phoneId": "8F02B169-1968-4545-893C-8AD514886ADDasdasd"
+    "phoneId": "8F02B169-1968-4545-893C-sasadmdas"
 }
 
 ###
 
-DELETE http://bastianschmalbach.ddns.net/users/5f7232554bd03c191dd33cc0
+DELETE http://bastianschmalbach.ddns.net/users/5f732423e1d62a1b89061035
 
 ###
 
-PATCH http://bastianschmalbach.ddns.net/tipps/5f7227b9a56cff1331ac1ead
+PATCH http://bastianschmalbach.ddns.net/tipps/5f7238a31f7d3e1cd65ed8ed
 Content-Type: application/json
 
 {
-    "thumb": "up"
+    "thumb": "down"
 }
 
 ###
