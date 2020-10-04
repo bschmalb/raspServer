@@ -9,8 +9,6 @@ var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv/config')
 
-//const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
-
 app.use(express.json({
   type: ['application/json', 'text/plain']
 }))
@@ -27,12 +25,12 @@ app.use(function (req, res, next) {
 const tippsRouter = require('./routes/tipps')
 const reportedTippsRouter = require('./routes/reportedTipps')
 const usersRouter = require('./routes/users')
-//const challengesRouter = require('./routes/challenges')
+const feedbacksRouter = require('./routes/feedbacks')
 //const factsRouter = require('./routes/facts')
 app.use('/tipps', tippsRouter)
 app.use('/reportedTipps', reportedTippsRouter)
 app.use('/users', usersRouter)
-//app.use('/challenges', challengesRouter)
+app.use('/feedbacks', feedbacksRouter)
 //app.use('/facts', factsRouter)
 
 

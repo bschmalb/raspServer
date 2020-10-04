@@ -32,7 +32,19 @@ Content-Type: application/json
 
 ###
 
-GET http://127.0.0.1:9000/reportedtipps
+GET http://127.0.0.1:9000/feedbacks
+
+###
+
+POST http://127.0.0.1:9000/feedbacks
+Content-Type: application/json
+
+{
+    "feedback": "Das hier ist ein Feedback Report",
+    "feedbackType": "report",
+    "userID": "12312313",
+    "userName": "12312313"
+}
 
 ###
 
