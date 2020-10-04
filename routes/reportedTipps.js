@@ -2,21 +2,21 @@ const express = require('express')
 const router = express.Router()
 const fs = require('fs');
 const rfc6902 = require('rfc6902');
-const Tipp = require('../models/Tipp')
+const ReportedTipp = require('../models/ReportedTipp')
 
-//const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
+//const reportedTipps = require("/home/pi/Documents/htmlServer/data/reportedTipps.json");
 
 router.get('/', async function (req, res) {
     try {
         if (req.query.minscore != null){
-            const tipps = await Tipp.find({score: { $gt: req.query.minscore }})
-            res.status(200).json(tipps)
+            const reportedTipps = await ReportedTipp.find({score: { $gt: req.query.minscore }})
+            res.status(200).json(reportedTipps)
         } else if (req.query.maxscore != null) {
-            const tipps = await Tipp.find({score: { $lt: req.query.maxscore }})
-            res.status(200).json(tipps)
+            const reportedTipps = await ReportedTipp.find({score: { $lt: req.query.maxscore }})
+            res.status(200).json(reportedTipps)
         } else {
-            const tipps = await Tipp.find(req.query);
-            res.status(200).json(tipps)
+            const reportedTipps = await ReportedTipp.find(req.query);
+            res.status(200).json(reportedTipps)
         }
     } catch (err) {
         res.status(404).json({ message: err })
@@ -27,13 +27,13 @@ router.get('/', async function (req, res) {
 /* router.get('/', async function (req, res) {
     try {
         if (req.query.minscore != null) {
-            var filteredTipps = await tipps.filter(element => element.score >= req.query.minscore)
+            var filteredTipps = await reportedTipps.filter(element => element.score >= req.query.minscore)
         }
         else if (req.query.maxscore != null) {
-            var filteredTipps = await tipps.filter(element => element.score <= req.query.maxscore)
+            var filteredTipps = await reportedTipps.filter(element => element.score <= req.query.maxscore)
         }
         else {
-            var filteredTipps = tipps
+            var filteredTipps = reportedTipps
         }
         res.status(200).json(filteredTipps);
     } catch (err) {
@@ -44,14 +44,14 @@ router.get('/', async function (req, res) {
 
 //Old Get by ID
 /* router.get('/:id', async function (req, res) {
-    var tipp = await tipps.find(element => element.id == req.params.id)
+    var tipp = await reportedTipps.find(element => element.id == req.params.id)
     if (tipp != undefined) res.status(200).send(tipp);
     else res.status(404).json({ message: 'Tipp does not exist' });
 }); */
 
 router.get('/:id', async function (req, res) {
     try {
-        const tipp = await Tipp.findById(req.params.id);
+        const tipp = await ReportedTipp.findById(req.params.id);
         res.status(200).json(tipp)
     } catch (err) {
         res.status(404).json({ message: err })
@@ -60,8 +60,8 @@ router.get('/:id', async function (req, res) {
 
 // Old Post
 /* router.post('/', function (req, res) {
-    tipps.push(req.body);
-    fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+    reportedTipps.push(req.body);
+    fs.writeFile("/home/pi/Documents/htmlServer/data/reportedTipps.json", JSON.stringify(reportedTipps), err => {
         if (err) {
             res.status(500).json({ message: 'Serverside Error' })
             throw err;
@@ -71,7 +71,7 @@ router.get('/:id', async function (req, res) {
 }); */
 
 router.post('/', async function (req, res) {
-    const tipp = new Tipp({
+    const tipp = new ReportedTipp({
         title: req.body.title,
         category: req.body.category,
         level: req.body.level,
@@ -93,22 +93,22 @@ router.post('/', async function (req, res) {
 // Old Patch
 /* router.patch('/:id', async function (req, res) {
 
-    var i = await tipps.findIndex(element => element.id == req.params.id)
+    var i = await reportedTipps.findIndex(element => element.id == req.params.id)
 
     if (i > -1) {
         if (req.body.thumb === "down") {
-            tipps[i].score -= 1
+            reportedTipps[i].score -= 1
         }
         else if (req.body.thumb === "up") {
-            tipps[i].score += 1
+            reportedTipps[i].score += 1
         }
-        if (tipps[i].reports == null) tipps[i].reports = 0;
+        if (reportedTipps[i].reports == null) reportedTipps[i].reports = 0;
         else if (req.body.thumb === "report") {
-            tipps[i].reports += 1
+            reportedTipps[i].reports += 1
         } else if (req.body.thumb === "unreport") {
-            tipps[i].reports -= 1
+            reportedTipps[i].reports -= 1
         }
-        fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+        fs.writeFile("/home/pi/Documents/htmlServer/data/reportedTipps.json", JSON.stringify(reportedTipps), err => {
             if (err) throw err;
         });
         res.status(200).json({ message: 'Patch erfolgreich' });
@@ -123,7 +123,7 @@ router.post('/', async function (req, res) {
 
 router.patch('/:id', async function (req, res) {
     try {
-        const tipp = await Tipp.findById(req.params.id);
+        const tipp = await ReportedTipp.findById(req.params.id);
         
         if (req.body.thumb === "down") {
             tipp.score -= 1
@@ -153,11 +153,11 @@ router.patch('/:id', async function (req, res) {
 // Old Delete
 /* router.delete('/:id', async function (req, res) {
 
-    var i = await tipps.findIndex(element => element.id == req.params.id)
+    var i = await reportedTipps.findIndex(element => element.id == req.params.id)
 
     if (i > -1) {
-        tipps.splice(i, 1);
-        fs.writeFile("/home/pi/Documents/htmlServer/data/tipps.json", JSON.stringify(tipps), err => {
+        reportedTipps.splice(i, 1);
+        fs.writeFile("/home/pi/Documents/htmlServer/data/reportedTipps.json", JSON.stringify(reportedTipps), err => {
             if (err) throw err;
         });
         res.status(200).json({ message: 'Tipp successfull deleted' });
@@ -172,7 +172,7 @@ router.patch('/:id', async function (req, res) {
 
 router.delete('/:id', async function (req, res) {
     try {
-        const deletedTipp = await Tipp.deleteOne({_id: req.params.id})
+        const deletedTipp = await ReportedTipp.deleteOne({_id: req.params.id})
         res.status(200).send(deletedTipp);
     } catch (err) {
         res.status(404).json({ message: err })

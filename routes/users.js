@@ -4,7 +4,7 @@ const fs = require('fs');
 const rfc6902 = require('rfc6902');
 const User = require('../models/User')
 
-const users = require("/home/pi/Documents/htmlServer/data/users.json");
+//const users = require("/home/pi/Documents/htmlServer/data/users.json");
 
 
 // Old Get

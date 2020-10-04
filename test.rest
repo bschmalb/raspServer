@@ -2,7 +2,7 @@ PATCH  http://bastianschmalbach.ddns.net/tipps/26D0346F-0BC0-4877-9374-3A19CF17F
 
 ###
 
-GET http://bastianschmalbach.ddns.net/reportedTipps
+GET http://127.0.0.1:9000/tipps
 
 ###
 
@@ -19,16 +19,20 @@ Content-Type: application/json
 
 ###
 
-DELETE http://bastianschmalbach.ddns.net/users/5f732423e1d62a1b89061035
+DELETE http://127.0.0.1:9000/reportedtipps/5f79ef23125f5dcd5125c64e
 
 ###
 
-PATCH http://bastianschmalbach.ddns.net/tipps/5f7238a31f7d3e1cd65ed8ed
+PATCH http://127.0.0.1:9000/tipps/5f7238a31f7d3e1cd65ed8ed
 Content-Type: application/json
 
 {
     "thumb": "down"
 }
+
+###
+
+GET http://127.0.0.1:9000/reportedtipps
 
 ###
 
@@ -64,7 +68,7 @@ Content-Type: application/json
 
 ###
 
-POST http://bastianschmalbach.ddns.net/tipps
+POST http://127.0.0.1:9000/reportedTipps
 Content-Type: application/json
 
 {

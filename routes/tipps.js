@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const fs = require('fs');
+const mongoose = require('mongoose');
 const rfc6902 = require('rfc6902');
 const Tipp = require('../models/Tipp')
+const ReportedTipp = require('../models/ReportedTipp')
 
-const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
+// const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
 
 router.get('/', async function (req, res) {
     try {
@@ -143,13 +145,30 @@ router.patch('/:id', async function (req, res) {
         */
 
         if (tipp.score < 4 || tipp.reports > 4) {
-            data.tipps.insert(tipp);
-            data.reportedTipps.remove(tipp);
-            console.log("moved to reportedTipps");
+            const reportedTipp = new ReportedTipp({
+                title: tipp.title,
+                category: tipp.category,
+                level: tipp.level,
+                source: tipp.source,
+                official: tipp.official,
+                postedBy: tipp.postedBy,
+                score: tipp.score
+            });
+        
+            try {
+                console.log("moved to reportedTipps");
+                const savedTReportedTipp = await reportedTipp.save()
+                const deletedTipp = await Tipp.deleteOne({ _id: req.params.id })
+                res.status(200).json({ message: "Tipp erfolgreich verschoben" })
+            }
+            catch (err) {
+                res.status(404).json({ message: err })
+            }
         } else {
             tipp.save();
+            console.log("just patched");
+            res.status(200).send(tipp);
         }
-        res.status(200).send(tipp);
     }
     catch (err) {
         res.status(404).json({ message: err })

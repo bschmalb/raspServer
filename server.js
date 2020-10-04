@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv/config')
 
-const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
+//const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
 
 app.use(express.json({
   type: ['application/json', 'text/plain']
@@ -25,49 +25,51 @@ app.use(function (req, res, next) {
 });
 
 const tippsRouter = require('./routes/tipps')
+const reportedTippsRouter = require('./routes/reportedTipps')
 const usersRouter = require('./routes/users')
-const challengesRouter = require('./routes/challenges')
-const factsRouter = require('./routes/facts')
+//const challengesRouter = require('./routes/challenges')
+//const factsRouter = require('./routes/facts')
 app.use('/tipps', tippsRouter)
+app.use('/reportedTipps', reportedTippsRouter)
 app.use('/users', usersRouter)
-app.use('/challenges', challengesRouter)
-app.use('/facts', factsRouter)
+//app.use('/challenges', challengesRouter)
+//app.use('/facts', factsRouter)
 
 
 app.get('/', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/index.html');
+  res.sendFile('web-app/index.html', {root: __dirname});
 });
 
 app.get('/addTipps', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/addTipps.html');
+  res.sendFile('web-app/addTipps.html', {root: __dirname});
 });
 
 app.get('/editTipps', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/editTipps.html');
+  res.sendFile('web-app/editTipps.html', {root: __dirname});
 });
 
 app.get('/addChallenges', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/addChallenges.html');
+  res.sendFile('web-app/addChallenges.html', {root: __dirname});
 });
 
 app.get('/editChallenges', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/editChallenges.html');
+  res.sendFile('web-app/editChallenges.html', {root: __dirname});
 });
 
 app.get('/design', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/design.html');
+  res.sendFile('web-app/design.html', {root: __dirname});
 });
 
 app.get('/prototypes', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/prototypes.html');
+  res.sendFile('web-app/prototypes.html', {root: __dirname});
 });
 
 app.get('/documentation', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/documentation.html');
+  res.sendFile('web-app/documentation.html', {root: __dirname});
 });
 
 app.get('/github', function (req, res) {
-  res.sendFile('/home/pi/Documents/htmlServer/web-app/github.html');
+  res.sendFile('web-app/github.html', {root: __dirname});
 });
 
 mongoose.connect(

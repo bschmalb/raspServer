@@ -1,4 +1,4 @@
-const express = require('express')
+/* const express = require('express')
 const router = express.Router()
 const fs = require('fs');
 
@@ -67,12 +67,6 @@ router.delete('/:id', function (req, res) {
         }
     }
     res.status(200).send(challenges);
-
-    /* challenges.splice(req.body.tippNumber, 1)
-    fs.writeFile("/home/pi/Documents/htmlServer/data/challenges.json", JSON.stringify(challenges), err => {
-      if (err) throw err;
-      console.log("Done writing");
-    });*/
 });
 
-module.exports = router
+module.exports = router */
