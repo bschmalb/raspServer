@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+/* var io = require('socket.io')(http);
 const fs = require('fs');
 var cors = require('cors');
 var bodyParser = require('body-parser');
@@ -86,7 +86,7 @@ io.on('connection', (client) => {
   client.on('disconnect', function () {
     console.log('A client disconnected\t', client.id);
   });
-});
+}); */
 
 const myPort = process.env.PORT || 9000
 http.listen(myPort, function () {
