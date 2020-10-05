@@ -88,7 +88,7 @@ io.on('connection', (client) => {
   });
 });
 
-const port = process.env.port || 9000
-http.listen(port, function () {
+const myPort = process.env.PORT || 9000
+http.listen(myPort, function () {
   console.log('listening on 192.168.2.128:9000');
 });
