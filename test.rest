@@ -32,11 +32,11 @@ Content-Type: application/json
 
 ###
 
-GET http://127.0.0.1:9000/feedbacks/
+GET https://sustainablelife.herokuapp.com/feedbacks
 
 ###
 
-POST http://127.0.0.1:9000/feedbacks
+POST https://sustainablelife.herokuapp.com/feedbacks
 Content-Type: application/json
 
 {
