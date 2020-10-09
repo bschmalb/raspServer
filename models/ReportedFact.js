@@ -11,7 +11,7 @@ const ReportedFactSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    isSuprised: {
+    isSurprised: {
         type: Number,
         default: 0
     },

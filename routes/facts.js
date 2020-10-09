@@ -40,7 +40,7 @@ router.post('/', async function (req, res) {
         category: req.body.category,
         source: req.body.source,
         isLoved: 0,
-        isSuprised: 0,
+        isSurprised: 0,
         isAngry: 0,
         official: req.body.official,
         postedBy: req.body.postedBy
@@ -76,7 +76,7 @@ router.patch('/:id', async function (req, res) {
                 title: fact.title,
                 category: fact.category,
                 isLoved: fact.isLoved,
-                isSuprised: fact.isSuprised,
+                isSurprised: fact.isSurprised,
                 isAngry: fact.isAngry,
                 official: fact.official,
                 postedBy: fact.postedBy,
