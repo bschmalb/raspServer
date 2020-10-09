@@ -57,7 +57,7 @@ PATCH https://sustainablelife.herokuapp.com/facts/5f80e3801528c700171f009b
 Content-Type: application/json
 
 {
-    "isLoved": 1
+    "isLoved": -1
 }
 
 ###

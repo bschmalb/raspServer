@@ -67,6 +67,12 @@ router.patch('/:id', async function (req, res) {
     if (req.body.isLoved != null) {
       fact.isLoved += req.body.isLoved
     }
+    if (req.body.isSurprised != null) {
+      fact.isSurprised += req.body.isSurprised
+    }
+    if (req.body.isAngry != null) {
+      fact.isAngry += req.body.isAngry
+    }
 
     if (fact.reports > 4) {
       const reportedFact = new ReportedFact({
