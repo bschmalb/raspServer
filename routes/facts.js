@@ -56,6 +56,7 @@ router.post('/', async function (req, res) {
 });
 
 router.patch('/:id', async function (req, res) {
+  console.log("patch");
   try {
     const fact = await Fact.findById(req.params.id);
 
@@ -65,9 +66,7 @@ router.patch('/:id', async function (req, res) {
       fact.reports -= 1
     }
     if (req.body.isLoved != nil) {
-      console.log("isLoved");
-      console.log(req.body.isLoved);
-      fact.isLoved += req.body.isLoved
+      fact.isLoved = 5
     }
 
     if (fact.reports > 4) {
