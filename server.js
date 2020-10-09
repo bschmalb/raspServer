@@ -26,12 +26,12 @@ const tippsRouter = require('./routes/tipps')
 const reportedTippsRouter = require('./routes/reportedTipps')
 const usersRouter = require('./routes/users')
 const feedbacksRouter = require('./routes/feedbacks')
-//const factsRouter = require('./routes/facts')
+const factsRouter = require('./routes/facts')
 app.use('/tipps', tippsRouter)
 app.use('/reportedTipps', reportedTippsRouter)
 app.use('/users', usersRouter)
 app.use('/feedbacks', feedbacksRouter)
-//app.use('/facts', factsRouter)
+app.use('/facts', factsRouter)
 
 
 app.get('/', function (req, res) {

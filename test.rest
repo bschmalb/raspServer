@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ###
 
-GET 192.168.2.128:9000/facts
+GET https://sustainablelife.herokuapp.com/facts
 
 
 ###
@@ -80,7 +80,7 @@ Content-Type: application/json
 
 ###
 
-POST 192.168.2.128:9000/facts
+POST https://sustainablelife.herokuapp.com/facts
 Content-Type: application/json
 
 {
