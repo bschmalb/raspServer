@@ -59,13 +59,7 @@ router.patch('/:id', async function (req, res) {
   try {
     const fact = await Fact.findById(req.params.id);
 
-    if (req.body.thumb === "down") {
-      fact.score -= 1
-    }
-    else if (req.body.thumb === "up") {
-      fact.score += 1
-    }
-    else if (req.body.thumb === "report") {
+    if (req.body.thumb === "report") {
       fact.reports += 1
     } else if (req.body.thumb === "unreport") {
       fact.reports -= 1
