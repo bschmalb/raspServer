@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ###
 
-GET http://bastianschmalbach.ddns.net/users
+GET 192.168.2.128:9000/facts
 
 
 ###
@@ -80,7 +80,7 @@ Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:9000/reportedTipps
+POST 192.168.2.128:9000/facts
 Content-Type: application/json
 
 {
