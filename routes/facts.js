@@ -56,9 +56,10 @@ router.post('/', async function (req, res) {
 });
 
 router.patch('/:id', async function (req, res) {
-  console.log("patch");
   try {
     const fact = await Fact.findById(req.params.id);
+    console.log(fact);
+    console.log(req.body);
 
     if (req.body.thumb === "report") {
       fact.reports += 1
