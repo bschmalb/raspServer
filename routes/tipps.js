@@ -144,7 +144,7 @@ router.patch('/:id', async function (req, res) {
         rfc6902.applyPatch(tipp, patch);
         */
 
-        if (tipp.score < 4 || tipp.reports > 4) {
+        if (tipp.score < -2 || tipp.reports > 4) {
             const reportedTipp = new ReportedTipp({
                 title: tipp.title,
                 category: tipp.category,
