@@ -124,6 +124,15 @@ router.patch('/:id', async function (req, res) {
                 user.savedTipps.unshift(req.body.savedTipps)
             }
         }
+        if (req.body.savedFacts != null) {
+            var tippIndex = await user.savedFacts.findIndex(element => element == req.body.savedFacts)
+            
+            if (tippIndex > -1) {
+                user.savedFacts.splice(tippIndex, 1);
+            } else if (tippIndex = -1) {
+                user.savedFacts.unshift(req.body.savedFacts)
+            }
+        }
         if (req.body.log != null) {
             if (user.log == null) user.log = [];
 

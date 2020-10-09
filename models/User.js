@@ -27,6 +27,10 @@ const UserSchema = mongoose.Schema({
         type: [String],
         default: []
     },
+    savedFacts: {
+        type: [String],
+        default: []
+    },
     reports: {
         type: Number,
         default: 0
