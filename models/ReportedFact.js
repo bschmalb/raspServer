@@ -4,11 +4,18 @@ const mongoose = require('mongoose')
 const ReportedFactSchema = mongoose.Schema({
     title: String,
     category: String,
-    level: String,
     source: String,
     official: String,
     postedBy: String,
-    score: {
+    isLoved: {
+        type: Number,
+        default: 0
+    },
+    isSuprised: {
+        type: Number,
+        default: 0
+    },
+    isAngry: {
         type: Number,
         default: 0
     },

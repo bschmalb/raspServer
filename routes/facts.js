@@ -39,9 +39,11 @@ router.post('/', async function (req, res) {
         title: req.body.title,
         category: req.body.category,
         source: req.body.source,
+        isLoved: 0,
+        isSuprised: 0,
+        isAngry: 0,
         official: req.body.official,
-        postedBy: req.body.postedBy,
-        score: req.body.score
+        postedBy: req.body.postedBy
     });
 
     try {
@@ -73,10 +75,12 @@ router.patch('/:id', async function (req, res) {
             const reportedFact = new ReportedFact({
                 title: fact.title,
                 category: fact.category,
-                source: fact.source,
+                isLoved: fact.isLoved,
+                isSuprised: fact.isSuprised,
+                isAngry: fact.isAngry,
                 official: fact.official,
                 postedBy: fact.postedBy,
-                score: fact.score
+                source: fact.source
             });
         
             try {

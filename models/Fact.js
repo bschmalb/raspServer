@@ -7,7 +7,15 @@ const FactSchema = mongoose.Schema({
     source: String,
     official: String,
     postedBy: String,
-    score: {
+    isLoved: {
+        type: Number,
+        default: 0
+    },
+    isSuprised: {
+        type: Number,
+        default: 0
+    },
+    isAngry: {
         type: Number,
         default: 0
     },
