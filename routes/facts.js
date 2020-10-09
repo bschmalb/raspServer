@@ -35,7 +35,7 @@ router.get('/:id', async function (req, res) {
 });
 
 router.post('/', async function (req, res) {
-    const Fact = new Fact({
+    const fact = new Fact({
         title: req.body.title,
         category: req.body.category,
         source: req.body.source,
@@ -45,7 +45,7 @@ router.post('/', async function (req, res) {
     });
 
     try {
-        const savedFact = await Fact.save()
+        const savedFact = await fact.save()
         res.status(200).json({ message: "Fact erfolgreich gepostet" })
     }
     catch (err) {
@@ -73,7 +73,6 @@ router.patch('/:id', async function (req, res) {
             const reportedFact = new ReportedFact({
                 title: fact.title,
                 category: fact.category,
-                level: fact.level,
                 source: fact.source,
                 official: fact.official,
                 postedBy: fact.postedBy,
@@ -99,26 +98,6 @@ router.patch('/:id', async function (req, res) {
         res.status(404).json({ message: err })
     }
 });
-
-// Old Delete
-/* router.delete('/:id', async function (req, res) {
-
-    var i = await Facts.findIndex(element => element.id == req.params.id)
-
-    if (i > -1) {
-        Facts.splice(i, 1);
-        fs.writeFile("/home/pi/Documents/htmlServer/data/Facts.json", JSON.stringify(Facts), err => {
-            if (err) throw err;
-        });
-        res.status(200).json({ message: 'Fact successfull deleted' });
-    }
-    else if (i == -1) {
-        res.status(404).json({ message: 'Fact does not exist' })
-    }
-    else {
-        res.status(500).json({ message: 'Serverside Error' })
-    }
-}); */
 
 router.delete('/:id', async function (req, res) {
     try {
