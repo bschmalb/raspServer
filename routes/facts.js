@@ -74,7 +74,7 @@ router.patch('/:id', async function (req, res) {
       fact.isLoved += req.body.isLoved
     }
 
-    if (fact.score < -2 || fact.reports > 4) {
+    if (fact.reports > 4) {
       const reportedFact = new ReportedFact({
         title: fact.title,
         category: fact.category,

@@ -53,11 +53,11 @@ GET https://sustainablelife.herokuapp.com/facts
 
 ###
 
-PATCH http://bastianschmalbach.ddns.net/users/5f722dd7d2d9541468b12226
+PATCH https://sustainablelife.herokuapp.com/facts/5f80e3801528c700171f009b
 Content-Type: application/json
 
 {
-    "checkedTipps": "TippID2"
+    "isLoved": 1
 }
 
 ###
@@ -86,10 +86,7 @@ Content-Type: application/json
 {
     "source":"",
     "category":"Ressourcen",
-    "score": 0,
     "official":"Offiziell",
     "title":"Seconnd Hand",
-    "level":"Schwer",
     "postedBy":"8F02B169-1968-4545-893C-8AD514886ADD",
-    "score": 25
 }
