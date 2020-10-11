@@ -19,6 +19,10 @@ const ReportedFactSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    score: {
+        type: Number,
+        default: 0
+    },
     reports: {
         type: Number,
         default: 0

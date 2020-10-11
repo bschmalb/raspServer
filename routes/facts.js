@@ -42,6 +42,7 @@ router.post('/', async function (req, res) {
     isLoved: 0,
     isSurprised: 0,
     isAngry: 0,
+    score: 0,
     official: req.body.official,
     postedBy: req.body.postedBy
   });
@@ -66,12 +67,15 @@ router.patch('/:id', async function (req, res) {
     }
     if (req.body.isLoved != null) {
       fact.isLoved += req.body.isLoved
+      fact.score += req.body.isLoved
     }
     if (req.body.isSurprised != null) {
       fact.isSurprised += req.body.isSurprised
+      fact.score += req.body.isSurprised
     }
     if (req.body.isAngry != null) {
       fact.isAngry += req.body.isAngry
+      fact.score += req.body.isAngry
     }
 
     if (fact.reports > 4) {
@@ -81,6 +85,7 @@ router.patch('/:id', async function (req, res) {
         isLoved: fact.isLoved,
         isSurprised: fact.isSurprised,
         isAngry: fact.isAngry,
+        score: fact.score,
         official: fact.official,
         postedBy: fact.postedBy,
         source: fact.source
