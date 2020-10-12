@@ -77,6 +77,9 @@ router.patch('/:id', async function (req, res) {
       fact.isAngry += req.body.isAngry
       fact.score += req.body.isAngry
     }
+    if (req.body.score != null) {
+      fact.score += req.body.score
+    }
 
     if (fact.reports > 4) {
       const reportedFact = new ReportedFact({
