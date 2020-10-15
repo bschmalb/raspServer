@@ -115,3 +115,14 @@ Content-Type: application/json
     "title":"Jaaaa",
     "postedBy":"5f7232ae79d17e1977483c3a"
 }
+
+###
+
+POST https://sustainablelife.herokuapp.com/users
+Content-Type: application/json
+
+{
+    "name": "Sustainable Team 🌱",
+    "age": "18-25",
+    "phoneId": "MacBook"
+}
