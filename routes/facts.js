@@ -11,13 +11,13 @@ const ReportedFact = require('../models/ReportedFact')
 router.get('/', async function (req, res) {
   try {
     if (req.query.minscore != null) {
-      const facts = await Fact.find({ score: { $gt: req.query.minscore } })
+      const facts = await Fact.find({ score: { $gt: req.query.minscore } }).sort({ "$natural": -1 })
       res.status(200).json(facts)
     } else if (req.query.maxscore != null) {
-      const facts = await Fact.find({ score: { $lt: req.query.maxscore } })
+      const facts = await Fact.find({ score: { $lt: req.query.maxscore } }).sort({ "$natural": -1 })
       res.status(200).json(facts)
     } else {
-      const facts = await Fact.find(req.query);
+      const facts = await Fact.find(req.query).sort({ "$natural": -1 });
       res.status(200).json(facts)
     }
   } catch (err) {
