@@ -81,12 +81,12 @@ mongoose.connect(
   console.log(`DB Connection Error: ${err.message}`);
   });
 
-io.on('connection', (client) => {
+/* io.on('connection', (client) => {
   console.log('A client connected\t', client.id);
   client.on('disconnect', function () {
     console.log('A client disconnected\t', client.id);
   });
-});
+}); */
 
 const myPort = process.env.PORT || 9000
 http.listen(myPort, function () {

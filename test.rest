@@ -48,16 +48,26 @@ Content-Type: application/json
 
 ###
 
-GET https://sustainablelife.herokuapp.com/facts
+GET https://sustainablelife.herokuapp.com/users
 
 
 ###
 
-PATCH https://sustainablelife.herokuapp.com/facts/5f80e3801528c700171f009b
+GET https://sustainablelife.herokuapp.com/tipps
+
+
+###
+
+DELETE https://sustainablelife.herokuapp.com/tipps/5f86f868790bc90017ae8b3b
+
+
+###
+
+PATCH https://sustainablelife.herokuapp.com/tipps/5f876525def53a0017813209
 Content-Type: application/json
 
 {
-    "isLoved": -1
+    "thumb": "up"
 }
 
 ###
@@ -80,13 +90,28 @@ Content-Type: application/json
 
 ###
 
-POST https://sustainablelife.herokuapp.com/facts
+POST https://sustainablelife.herokuapp.com/tipps
 Content-Type: application/json
 
 {
     "source":"",
-    "category":"Ressourcen",
+    "category":"Ernährung",
+    "level": "Mittel",
+    "official":"Community",
+    "title":"Test Titel",
+    "postedBy":"5f7232ae79d17e1977483c3a"
+}
+
+###
+
+POST https://sustainablelife.herokuapp.com/tipps
+Content-Type: application/json
+
+{
+    "source":"",
+    "category":"Haushalt",
+    "level": "Einfach",
     "official":"Offiziell",
-    "title":"Seconnd Hand",
-    "postedBy":"8F02B169-1968-4545-893C-8AD514886ADD",
+    "title":"Jaaaa",
+    "postedBy":"5f7232ae79d17e1977483c3a"
 }
