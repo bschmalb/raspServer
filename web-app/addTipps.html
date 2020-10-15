@@ -102,7 +102,7 @@
         var score = "score";
         object[score] = 30;
         var postedBy = "postedBy";
-        object[postedBy] = "Sustainable Team";
+        object[postedBy] = "Sustainable Team 🌱";
         var official = "official";
         object[official] = "Offiziell";
         obj.forEach(function (value, key) {
@@ -112,7 +112,7 @@
 
         console.log(object);
 
-        /* var apiUrl = 'http://bastianschmalbach.ddns.net/tipps';
+        var apiUrl = 'http://sustainablelife.herokuapp.com/tipps';
         fetch(apiUrl, {
             method: 'POST',
             body: JSON.stringify(object),
@@ -125,7 +125,7 @@
             alert("There was an Error submitting your Tipp")
             console.log(err)
         });
- */
+
         event.preventDefault();
     });
 </script>
