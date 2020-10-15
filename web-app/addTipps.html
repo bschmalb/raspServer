@@ -99,12 +99,10 @@
         var object = {};
         var obj = ($(this).serializeArray());
 
-        var id = "id"
-        object[id] = uuidv4();
         var score = "score";
-        object[score] = 21;
+        object[score] = 30;
         var postedBy = "postedBy";
-        object[postedBy] = "Admin";
+        object[postedBy] = "Sustainable Team";
         var official = "official";
         object[official] = "Offiziell";
         obj.forEach(function (value, key) {
@@ -112,7 +110,9 @@
             object[name] = value.value;
         });
 
-        var apiUrl = 'http://bastianschmalbach.ddns.net/tipps';
+        console.log(object);
+
+        /* var apiUrl = 'http://bastianschmalbach.ddns.net/tipps';
         fetch(apiUrl, {
             method: 'POST',
             body: JSON.stringify(object),
@@ -125,7 +125,7 @@
             alert("There was an Error submitting your Tipp")
             console.log(err)
         });
-
+ */
         event.preventDefault();
     });
 </script>
