@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ###
 
-GET https://sustainablelife.herokuapp.com/users
+GET https://sustainablelife.herokuapp.com/users/5f7232ae79d17e1977483c3a
 
 
 ###
