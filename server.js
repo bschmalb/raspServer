@@ -42,6 +42,10 @@ app.get('/addTipps', function (req, res) {
   res.sendFile('web-app/addTipps.html', {root: __dirname});
 });
 
+app.get('/addFacts', function (req, res) {
+  res.sendFile('web-app/addFacts.html', {root: __dirname});
+});
+
 app.get('/editTipps', function (req, res) {
   res.sendFile('web-app/editTipps.html', {root: __dirname});
 });
