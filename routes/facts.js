@@ -39,9 +39,9 @@ router.post('/', async function (req, res) {
     title: req.body.title,
     category: req.body.category,
     source: req.body.source,
-    isLoved: 0,
-    isSurprised: 0,
-    isAngry: 0,
+    isLoved: req.body.isLoved,
+    isSurprised: req.body.isSurprised,
+    isAngry: req.body.isAngry,
     score: req.body.score,
     official: req.body.official,
     postedBy: req.body.postedBy
