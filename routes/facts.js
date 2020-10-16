@@ -42,7 +42,7 @@ router.post('/', async function (req, res) {
     isLoved: 0,
     isSurprised: 0,
     isAngry: 0,
-    score: 0,
+    score: req.body.score,
     official: req.body.official,
     postedBy: req.body.postedBy
   });
