@@ -83,6 +83,7 @@ router.post('/', async function (req, res) {
 });
 
 router.patch('/:id', async function (req, res) {
+    console.log(req.body);
     try {
         const user = await User.findById(req.params.id);
 
