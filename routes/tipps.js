@@ -10,11 +10,13 @@ const ReportedTipp = require('../models/ReportedTipp')
 
 router.get('/', async function (req, res) {
     try {
-        if (req.query.minscore != null) {
-            const tipps = await Tipp.find({ score: { $gt: req.query.minscore } }).sort({ "$natural": -1 })
+        if (req.body.minscore != null) {
+            const tipps = await Tipp.find(req.query).sort({ "$natural": -1 });
+            tipps.filter($0.score > minscore);
             res.status(200).json(tipps)
-        } else if (req.query.maxscore != null) {
-            const tipps = await Tipp.find({ score: { $lt: req.query.maxscore } }).sort({ "$natural": -1 })
+        } else if (req.body.maxscore != null) {
+            const tipps = await Tipp.find(req.query).sort({ "$natural": -1 });
+            tipps.filter($0.score < maxscore);
             res.status(200).json(tipps)
         } else {
             const tipps = await Tipp.find(req.query).sort({ "$natural": -1 });
