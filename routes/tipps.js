@@ -12,11 +12,11 @@ router.get('/', async function (req, res) {
     try {
         if (req.body.minscore != null) {
             const tipps2 = await Tipp.find(req.query).sort({ "$natural": -1 });
-            const tipps = tipps2.filter(tipp => tipp.score > req.body.minscore);
+            const tipps = tipps2.filter(tipp => tipp.score >= req.body.minscore);
             res.status(200).json(tipps)
         } else if (req.body.maxscore != null) {
-            const tipps = await Tipp.find(req.query).sort({ "$natural": -1 });
-            tipps.filter($0.score < req.body.maxscore);
+            const tipps2 = await Tipp.find(req.query).sort({ "$natural": -1 });
+            const tipps = tipps2.filter(tipp => tipp.score <= req.body.maxscore);
             res.status(200).json(tipps)
         } else {
             const tipps = await Tipp.find(req.query).sort({ "$natural": -1 });
