@@ -23,6 +23,7 @@ router.get('/', async function (req, res) {
             res.status(200).json(tipps)
         }
     } catch (err) {
+        console.log(err);
         res.status(404).json({ message: err })
     }
 });

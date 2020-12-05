@@ -53,8 +53,12 @@ GET https://sustainablelife.herokuapp.com/users/5f7232ae79d17e1977483c3a
 
 ###
 
-GET https://sustainablelife.herokuapp.com/tipps
+GET https://sustainablelife.herokuapp.com/tipps?category=Transport
+Content-Type: application/json
 
+{
+    "maxscore": 20
+}
 
 ###
 
