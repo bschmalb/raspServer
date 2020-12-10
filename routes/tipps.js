@@ -18,10 +18,13 @@ router.get('/', async function (req, res) {
 
     var scoreFilter = null
     Object.keys(req.query).forEach(k => {
+        console.log(k);
         if (k === "minscore") {
+            console.log(`${k} === minscore`);
             var name = "minscore"
             scoreFilter[name] = req.query[k]
-            //delete myQuery.minscore
+            console.log("end of if k === minscore");
+            console.log("in for each scorefilter =" + scoreFilter);
         }
     });
     console.log(scoreFilter);
