@@ -13,8 +13,9 @@ router.get('/', async function (req, res) {
         console.log(element);
     }); */
     Object.keys(req.query).forEach(k => {
-        console.log(key + "-" + req.query[key]);
+        console.log(k + "-" + req.query[k]);
     });
+    console.log(req.query[0]);
     /* const scoreFilter = req.query.find(element => element[key] == minscore)
     console.log(scoreFilter); */
     try {
