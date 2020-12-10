@@ -21,12 +21,14 @@ router.get('/', async function (req, res) {
         if (req.query.minscore != null) {
             var filterScore = req.params.minscore
             delete myQuery.minscore;
+            console.log(filterScore);
             const tipps2 = await Tipp.find(myQuery).sort({ "$natural": -1 });
             const tipps = tipps2.filter(tipp => tipp.score >= filterScore);
             res.status(200).json(tipps)
         } else if (req.query.maxscore != null) {
             var filterScore = req.params.maxscore
             delete myQuery.maxscore;
+            console.log(filterScore);
             const tipps2 = await Tipp.find(myQuery).sort({ "$natural": -1 });
             const tipps = tipps2.filter(tipp => tipp.score <= filterScore);
             res.status(200).json(tipps)
