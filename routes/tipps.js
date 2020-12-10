@@ -9,11 +9,12 @@ const ReportedTipp = require('../models/ReportedTipp')
 // const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
 
 router.get('/', async function (req, res) {
-    console.log(req.body.minscore);
-    console.log(req.body.maxscore);
-    console.log(req.body);
+    //req.params.filter(i => i.minscore == "minscore")
+    req.params.forEach(element => {
+        console.log(element);
+    });
     try {
-        if (req.body.minscore != null) {
+        if (req.params.minscore != null) {
             const tipps2 = await Tipp.find(req.query).sort({ "$natural": -1 });
             const tipps = tipps2.filter(tipp => tipp.score >= req.body.minscore);
             res.status(200).json(tipps)
