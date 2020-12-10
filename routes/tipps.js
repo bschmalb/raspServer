@@ -12,8 +12,11 @@ router.get('/', async function (req, res) {
     /* req.query.forEach(element => {
         console.log(element);
     }); */
-    const scoreFilter = req.query.find(element => element[key] == minscore)
-    console.log(scoreFilter);
+    Object.keys(req.query).forEach(k => {
+        console.log(key + "-" + req.query[key]);
+    });
+    /* const scoreFilter = req.query.find(element => element[key] == minscore)
+    console.log(scoreFilter); */
     try {
         if (req.params.minscore != null) {
             const tipps2 = await Tipp.find(req.query).sort({ "$natural": -1 });
