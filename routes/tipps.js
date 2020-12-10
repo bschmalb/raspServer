@@ -9,6 +9,9 @@ const ReportedTipp = require('../models/ReportedTipp')
 // const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
 
 router.get('/', async function (req, res) {
+    console.log(req.body.minscore);
+    console.log(req.body.maxscore);
+    console.log(req.body);
     try {
         if (req.body.minscore != null) {
             const tipps2 = await Tipp.find(req.query).sort({ "$natural": -1 });
