@@ -89,6 +89,7 @@ router.patch('/:id', async function (req, res) {
 
         if (req.body.name != null) {
             user.name = req.body.name
+            console.log("name changed");
         }
         if (req.body.reportedTipps != null) {
             if (user.reportedTipps == null) user.reportedTipps = 0;
