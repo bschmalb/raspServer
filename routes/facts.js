@@ -81,7 +81,7 @@ router.patch('/:id', async function (req, res) {
       fact.score += req.body.score
     }
 
-    if (fact.reports > 4) {
+    if (fact.score < -2 || (((fact.score + 40) / fact.reports) < 15)) {
       const reportedFact = new ReportedFact({
         title: fact.title,
         category: fact.category,

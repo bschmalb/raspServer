@@ -45,7 +45,11 @@ const UserSchema = mongoose.Schema({
         shower: Number,
         binWaste: Number,
         date: String,
-    } ]
+    } ],
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    }
 })
 
 module.exports = mongoose.model('Users', UserSchema)
