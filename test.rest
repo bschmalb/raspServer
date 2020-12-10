@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ###
 
-GET https://sustainablelife.herokuapp.com/tipps?category=Ressourcen&level=Leicht&minscore=200
+GET https://sustainablelife.herokuapp.com/tipps?category=Ressourcen&level=Leicht&maxscore=60
 
 
 
