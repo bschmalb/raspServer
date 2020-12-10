@@ -26,6 +26,8 @@ router.get('/', async function (req, res) {
     try {
         if (req.query.minscore != null) {
             delete myQuery.minscore;
+            console.log(myQuery);
+            console.log(req.query);
             const tipps2 = await Tipp.find(myQuery).sort({ "$natural": -1 });
             console.log(tipps2);
             const tipps = tipps2.filter(tipp => tipp.score >= req.query.minscore);
