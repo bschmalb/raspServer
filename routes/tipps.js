@@ -15,21 +15,21 @@ router.get('/', async function (req, res) {
 
     var myQuery = req.query
     var scoreFilter = {};
-    
+
     Object.keys(req.query).forEach(k => {
         if (k === "minscore") {
-            console.log(`req.query[k] = ${req.query[k]}`);
             scoreFilter['minscore'] = req.query[k];
-            console.log("in for each scorefilter =" + scoreFilter);
         }
     });
     console.log(scoreFilter);
-    delete myQuery.minscore
+    delete myQuery.minscore;
     console.log(myQuery);
     try {
         if (req.params.minscore != null) {
             const tipps2 = await Tipp.find(myQuery).sort({ "$natural": -1 });
-            const tipps = tipps2.filter(tipp => tipp.score >= req.params.minscore);
+            console.log(tipps2);
+            const tipps = tipps2.filter(tipp => tipp.score >= scoreFilter.minscore);
+            console.log(tipps);
             res.status(200).json(tipps)
         } else if (req.body.maxscore != null) {
             const tipps2 = await Tipp.find(req.query).sort({ "$natural": -1 });
