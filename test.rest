@@ -48,8 +48,13 @@ Content-Type: application/json
 
 ###
 
-GET https://sustainablelife.herokuapp.com/tipps?category=Transport&level=Einfach&minscore=20
+GET https://sustainablelife.herokuapp.com/tipps?category=Ressourcen&level=Leicht&minscore=200
 
+
+
+###
+
+GET 192.168.2.128:9000/tipps
 
 ###
 

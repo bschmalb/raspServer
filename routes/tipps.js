@@ -26,12 +26,11 @@ router.get('/', async function (req, res) {
     try {
         if (req.query.minscore != null) {
             delete myQuery.minscore;
-            console.log(myQuery);
-            console.log(req.query);
+            console.log(req.query.minscore);
             const tipps2 = await Tipp.find(myQuery).sort({ "$natural": -1 });
-            console.log(tipps2);
+            console.log(tipps2.length);
             const tipps = tipps2.filter(tipp => tipp.score >= req.query.minscore);
-            console.log(tipps);
+            console.log(tipps.length);
             res.status(200).json(tipps)
         } else if (req.query.maxscore != null) {
             delete myQuery.maxscore;
