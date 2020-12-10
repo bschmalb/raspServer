@@ -10,22 +10,17 @@ const { query } = require('express');
 // const tipps = require("/home/pi/Documents/htmlServer/data/tipps.json");
 
 router.get('/', async function (req, res) {
-    /* req.query.forEach(element => {
-        console.log(element);
-    }); */
-
     var myQuery = req.query
     console.log(req.query.minscore);
-    //var scoreFilter = {};
-
-/*     Object.keys(req.query).forEach(k => {
+    /* var scoreFilter = {};
+    Object.keys(req.query).forEach(k => {
         if (k === "minscore") {
             scoreFilter['minscore'] = req.query[k];
         }
-    });
-    console.log(scoreFilter); */
+    });*/
     try {
         if (req.query.minscore != null) {
+            console.log(req.query.minscore);
             delete myQuery.minscore;
             console.log(req.query.minscore);
             const tipps2 = await Tipp.find(myQuery).sort({ "$natural": -1 });
