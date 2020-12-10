@@ -11,6 +11,7 @@ const { query } = require('express');
 
 router.get('/', async function (req, res) {
     var myQuery = req.query
+    var filterScore = req.params.minscore
     /* var scoreFilter = {};
     Object.keys(req.query).forEach(k => {
         if (k === "minscore") {
@@ -19,7 +20,6 @@ router.get('/', async function (req, res) {
     });*/
     try {
         if (req.query.minscore != null) {
-            var filterScore = req.params.minscore
             delete myQuery.minscore;
             console.log(filterScore);
             const tipps2 = await Tipp.find(myQuery).sort({ "$natural": -1 });
