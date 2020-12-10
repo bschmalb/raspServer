@@ -13,7 +13,7 @@ router.get('/', async function (req, res) {
     /* req.params.forEach(element => {
         console.log(element);
     }); */
-    console.log(req.params);
+    console.log(req.query);
     try {
         if (req.params.minscore != null) {
             const tipps2 = await Tipp.find(req.query).sort({ "$natural": -1 });
