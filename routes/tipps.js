@@ -13,14 +13,15 @@ router.get('/', async function (req, res) {
         console.log(element);
     }); */
 
+    var myQuery = req.query
     var scoreFilter = {};
 
     var scoreFilter = null
     Object.keys(req.query).forEach(k => {
-        if (k == "minscore") {
+        if (k === "minscore") {
             var name = "minscore"
             scoreFilter[name] = req.query[k]
-            //delete req.query.minscore
+            //delete myQuery.minscore
         }
     });
     console.log(scoreFilter);
