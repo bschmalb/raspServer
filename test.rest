@@ -48,16 +48,16 @@ Content-Type: application/json
 
 ###
 
-GET https://sustainablelife.herokuapp.com/users/5f7232ae79d17e1977483c3a
+GET https://sustainablelife.herokuapp.com/tipps?category=Transport&level=Einfach&minscore=20
 
 
 ###
 
-GET https://sustainablelife.herokuapp.com/tipps?category=Ernährung
+GET https://sustainablelife.herokuapp.com/tipps
 Content-Type: application/json
 
 {
-    "minscore": 49
+    "maxscore": 20
 }
 
 ###

@@ -20,7 +20,7 @@ router.get('/', async function (req, res) {
         if (k == "minscore") {
             var name = "minscore"
             scoreFilter[name] = req.query[k]
-            delete req.query.minscore
+            //delete req.query.minscore
         }
     });
     console.log(scoreFilter);
