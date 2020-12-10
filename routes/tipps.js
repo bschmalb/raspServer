@@ -12,10 +12,19 @@ router.get('/', async function (req, res) {
     /* req.query.forEach(element => {
         console.log(element);
     }); */
+
+    var scoreFilter = {};
+
+    var scoreFilter = null
     Object.keys(req.query).forEach(k => {
-        console.log(k + "-" + req.query[k]);
+        if (k == "minscore") {
+            var name = "minscore"
+            scoreFilter[name] = req.query[k]
+            delete req.query.minscore
+        }
     });
-    console.log(req.query[0]);
+    console.log(scoreFilter);
+    console.log(req.query);
     /* const scoreFilter = req.query.find(element => element[key] == minscore)
     console.log(scoreFilter); */
     try {
@@ -166,7 +175,7 @@ router.patch('/:id', async function (req, res) {
                 postedBy: tipp.postedBy,
                 score: tipp.score
             });
-        
+
             try {
                 console.log("moved to reportedTipps");
                 const savedTReportedTipp = await reportedTipp.save()
