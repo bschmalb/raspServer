@@ -8,7 +8,7 @@ const Feedback = require('../models/Feedback');
 
 router.get('/', async function (req, res) {
     try {
-        const feedbacks = await Feedback.find(req.query);
+        const feedbacks = await Feedback.find(req.query).sort({ "$natural": -1 });
         res.status(200).json(feedbacks)
     } catch (err) {
         res.status(404).json({ message: err })
