@@ -19,7 +19,7 @@ const User = require('../models/User')
 
 router.get('/', async function (req, res) {
     try {
-        const users = await User.find(req.query);
+        const users = await User.find(req.query).sort({ "$natural": -1 });
         res.status(200).json(users)
     } catch (err) {
         res.status(404).json({ message: err })
