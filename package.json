@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "forever": "^3.0.2",
     "form_to_object": "^2.0.0",
-    "mongoose": "^5.10.7",
+    "mongoose": "^5.13.20",
     "ngrok": "^3.2.7",
     "nodemon": "^2.0.4",
     "rfc6902": "^4.0.1",
